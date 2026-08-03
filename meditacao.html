@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XXXX - Meditação e Descompressão</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #F4F0FA, #EBF3F7, #EBF7F5);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #1A1C24;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Animação suave para o fundo do site */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* CABEÇALHO REPLICADO DA HOME */
+        header {
+            background-color: rgba(240, 235, 247, 0.9); 
+            backdrop-filter: blur(10px);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #E2D9F3; 
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-texto h2 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #1A1C24;
+            line-height: 1.1;
+        }
+
+        .logo-texto span {
+            font-size: 0.8rem;
+            color: #706F78;
+            font-weight: 500;
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #55545E;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding-bottom: 6px;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #1A1C24;
+        }
+
+        .nav-link.active {
+            color: #1A1C24;
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #8367C7; 
+            border-radius: 2px;
+        }
+
+        /* CONTEÚDO PRINCIPAL DE MEDITAÇÃO */
+        .meditation-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .intro-text h1 {
+            font-size: 2.4rem;
+            color: #1A1C24;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-text p {
+            color: #55545E;
+            font-size: 1.1rem;
+        }
+
+        /* 1. EXERCÍCIO DO BALÃO MODERNO COM GLOW */
+        .breathing-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .balloon-container {
+            width: 260px;
+            height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .balloon {
+            width: 130px;
+            height: 130px;
+            background: radial-gradient(circle, #9d85db 0%, #8367C7 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(131, 103, 199, 0.4), inset 0 -10px 20px rgba(0,0,0,0.1);
+            animation: breatheAnimation 8s infinite ease-in-out;
+        }
+
+        .breathing-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #6A50A7;
+            height: 35px;
+            text-shadow: 0 2px 4px rgba(131, 103, 199, 0.1);
+        }
+
+        @keyframes breatheAnimation {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 20px rgba(131, 103, 199, 0.3);
+            }
+            45% { 
+                transform: scale(1.75); 
+                box-shadow: 0 0 50px rgba(131, 103, 199, 0.6);
+            }
+            55% { 
+                transform: scale(1.75); 
+                box-shadow: 0 0 50px rgba(131, 103, 199, 0.6);
+            }
+            90% { 
+                transform: scale(1); 
+                box-shadow: 0 0 20px rgba(131, 103, 199, 0.3);
+            }
+        }
+
+        /* 2. CARDS E CARACTERÍSTICAS EM EFEITO VIDRO (GLASSMORPHISM) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            padding: 35px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 10px 30px rgba(131, 103, 199, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            transition: transform 0.3s;
+        }
+
+        .glass-card h3 {
+            font-size: 1.2rem;
+            color: #1A1C24;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            color: #6A50A7;
+        }
+
+        #display-phrase {
+            font-size: 1.25rem;
+            color: #2D2F38;
+            font-style: italic;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .btn-draw {
+            background: linear-gradient(135deg, #9d85db 0%, #8367C7 100%);
+            color: #FFFFFF;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(131, 103, 199, 0.25);
+            transition: all 0.2s;
+        }
+
+        .btn-draw:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(131, 103, 199, 0.35);
+        }
+
+        .btn-draw:active {
+            transform: translateY(0);
+        }
+
+        /* 3. CONTROLE DE SONS AMBIENTES */
+        .audio-buttons-grid {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .btn-sound {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1.5px solid #E2D9F3;
+            padding: 12px 24px;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #55545E;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+
+        .btn-sound:hover {
+            background: #FFFFFF;
+            border-color: #8367C7;
+            color: #1A1C24;
+        }
+
+        .btn-sound.playing {
+            background-color: #EBF7F6;
+            border-color: #2C7A7B;
+            color: #2C7A7B;
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(44, 122, 123, 0.15);
+            animation: pulseSound 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseSound {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        /* NOTA DE RODAPÉ DISCRETA */
+        footer {
+            background-color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #92919A;
+            border-top: 1px solid #EAE6F0;
+            margin-top: auto;
+        }
+
+        /* BOTÃO FLUTUANTE ESC */
+        .floating-esc-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #EF4444;
+            color: #FFFFFF;
+            border: 2px solid #DC2626;
+            padding: 15px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+            z-index: 999;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .floating-esc-btn:hover {
+            background-color: #DC2626;
+            transform: scale(1.05);
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav {
+                justify-content: center;
+            }
+            .balloon-container {
+                width: 200px;
+                height: 200px;
+            }
+            .balloon {
+                width: 110px;
+                height: 110px;
+            }
+            .intro-text h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BOTÃO FLUTUANTE ESC -->
+    <button class="floating-esc-btn" onclick="exitUrgent()">
+        ⚠️ SAIR RÁPIDO (ESC)
+    </button>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <div class="logo-area">
+            <img src="./logo.png" alt="Logo Voz Segura" class="logo-img">
+            <div class="logo-texto">
+                <h2>XXXX</h2>
+                <span>Juntos contra o bullying</span>
+            </div>
+        </div>
+        
+        <nav>
+            <a href="index.html" class="nav-link">Início</a>
+            <a href="meditacao.html" class="nav-link active">Meditação</a>
+            <a href="autoavaliacao.html" class="nav-link">Autoavaliação (PHQ-9)</a>
+            <a href="relato.html" class="nav-link">Relatar caso</a>
+            <a href="noticias.html" class="nav-link">Notícias e Ciência</a>
+            <a href="denuncia.html" class="nav-link">Canais de denúncia</a>
+        </nav>
+    </header>
+
+    <!-- CONTEÚDO DA MEDITAÇÃO -->
+    <main class="meditation-container">
+        
+        <div class="intro-text">
+            <h1>Espaço de Descompressão</h1>
+            <p>Respire fundo e tire um momento calmo para você.</p>
+        </div>
+
+        <!-- 1. O BALÃO DE RESPIRAÇÃO GLOW -->
+        <div class="breathing-section">
+            <div class="balloon-container">
+                <div class="balloon" id="breathing-balloon"></div>
+            </div>
+            <div class="breathing-text" id="instruction-label">Respire devagar...</div>
+        </div>
+
+        <!-- 2. SORTEIO DE FRASES EM GLASSMORPHISM -->
+        <div class="glass-card">
+            <h3>Pensamento do Momento</h3>
+            <div id="display-phrase">Clique para tirar um bilhete de apoio feito para você.</div>
+            <button class="btn-draw" onclick="drawPhrase()">✨ Tirar Bilhete</button>
+        </div>
+
+        <!-- 3. SONS AMBIENTES -->
+        <div class="glass-card">
+            <h3>Sons de Fundo</h3>
+            <div class="audio-buttons-grid">
+                <button class="btn-sound" onclick="toggleSound('chuva', this)">      🌧️ Chuva Suave</button>
+                <button class="btn-sound" onclick="toggleSound('mar', this)">🌊 Ondas do Mar</button>
+                <button class="btn-sound" onclick="toggleSound('floresta', this)">🍃 Som da Floresta</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ÁUDIOS DE BACKGROUND -->
+    <audio id="audio-chuva" loop src="https://assets.mixkit.co/active_storage/sfx/2433/2433-84.wav"></audio>
+    <audio id="audio-mar" loop src="https://assets.mixkit.co/active_storage/sfx/2511/2511-84.wav"></audio>
+    <audio id="audio-floresta" loop src="https://assets.mixkit.co/active_storage/sfx/1233/1233-84.wav"></audio>
+
+    <!-- NOTA DE RODAPÉ -->
+    <footer>
+        &copy; 2026 XXXX &bull; Projeto desenvolvido pela Escola Elça Carvalho da Fonseca. Todos os direitos reservados.
+    </footer>
+
+    <script>
+        const phrases = [
+            "Você é muito maior do que qualquer palavra que tente te diminuir.",
+            "Tudo bem não estar forte o tempo todo. Respeite o seu momento.",
+            "A sua voz importa, e a sua existência faz diferença no mundo.",
+            "O que você está sentindo agora vai passar. Fique firme.",
+            "Não enfrente isso sozinho. Existem pessoas que se importam com você.",
+            "Você é inteligente, capaz e merece ser respeitado(a) por quem você é.",
+            "Nenhum ato de crueldade alheia define o seu valor real.",
+            "Respire fundo. Você está em um espaço seguro agora.",
+            "Sua história ainda tem muitos capítulos felizes para serem escritos.",
+            "Você é forte por ter chegado até aqui. Orgulhe-se disso.",
+            "Ninguém tem o direito de roubar a sua paz ou a sua alegria.",
+            "Focar em si mesmo é a melhor forma de recuperar o seu poder.",
+            "O bullying diz muito mais sobre as fraquezas do outro do que sobre você.",
+            "Sua sensibilidade é uma força, não uma fraqueza.",
+            "Permita-se fechar os olhos e deixar os problemas do lado de fora um pouco.",
+            "Você é uma pessoa única e preciosa. Lembre-se sempre disso.",
+            "Dias melhores estão a caminho. A tempestade não dura para sempre.",
+            "Proteja a sua mente. Você merece gentileza e autocuidado.",
+            "Seja paciente com você mesmo. Você está fazendo o melhor que pode.",
+            "Você tem o direito de ocupar o seu espaço na escola e no mundo.",
+            "Não tenha medo de pedir ajuda. Isso é um sinal de coragem.",
+            "Mantenha a cabeça erguida: a maldade dos outros não define quem você é.",
+            "Cada respiração profunda te traz de volta para o seu centro de calma.",
+            "Você é perfeitamente capaz de superar esse momento difícil.",
+            "Olhe para dentro e reconheça a força linda que existe em você."
+        ];
+
+        function drawPhrase() {
+            const display = document.getElementById('display-phrase');
+            display.style.opacity = 0;
+            
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * phrases.length);
+                display.innerText = phrases[randomIndex];
+                display.style.opacity = 1;
+                display.style.transition = 'opacity 0.4s ease';
+            }, 200);
+        }
+
+        const instructionLabel = document.getElementById('instruction-label');
+        function updateBreathingText() {
+            instructionLabel.innerText = "Puxe o ar pelo nariz... (Inspira)";
+            setTimeout(() => {
+                instructionLabel.innerText = "Segure o ar um instante...";
+            }, 3600); 
+            setTimeout(() => {
+                instructionLabel.innerText = "Solte o ar pela boca devagar... (Expira)";
+            }, 4400); 
+        }
+        
+        updateBreathingText();
+        setInterval(updateBreathingText, 8000);
+
+        let currentAudio = null;
+        function toggleSound(soundType, button) {
+            const audio = document.getElementById(`audio-${soundType}`);
+            const allButtons = document.querySelectorAll('.btn-sound');
+            
+            if (currentAudio === audio) {
+                audio.pause();
+                button.classList.remove('playing');
+                currentAudio = null;
+            } else {
+                if (currentAudio) {
+                    currentAudio.pause();
+                    allButtons.forEach(btn => btn.classList.remove('playing'));
+                }
+                audio.play();
+                button.classList.add('playing');
+                currentAudio = audio;
+            }
+        }
+
+        function exitUrgent() {
+            if (currentAudio) currentAudio.pause();
+            window.location.href = 'https://www.google.com';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                exitUrgent();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XXXX - Notícias e Ciência</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #F4F0FA, #EBF3F7, #EBF7F5);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #1A1C24;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Animação suave para o fundo */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* CABEÇALHO PADRÃO DO PROJETO */
+        header {
+            background-color: #F0EBF7; 
+            padding: 14px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #E2D9F3; 
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-texto h2 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #1A1C24;
+            line-height: 1.1;
+        }
+
+        .logo-texto span {
+            font-size: 0.78rem;
+            color: #706F78;
+            font-weight: 500;
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #55545E;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding-bottom: 4px;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #1A1C24;
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #8367C7; 
+            border-radius: 2px;
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .main-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .page-header h1 {
+            font-size: 2.2rem;
+            color: #1A1C24;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            color: #55545E;
+            font-size: 1.05rem;
+        }
+
+        /* CONTROLE DE ABAS (TABS) */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid #E2D9F3;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #55545E;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            background: #FFFFFF;
+            color: #8367C7;
+            border-color: #8367C7;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #9d85db 0%, #8367C7 100%);
+            color: #FFFFFF;
+            border-color: transparent;
+            box-shadow: 0 6px 20px rgba(131, 103, 199, 0.25);
+        }
+
+        /* SEÇÕES DE CONTEÚDO */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* GRID DE VÍDEOS COM IMAGENS */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(131, 103, 199, 0.06);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(131, 103, 199, 0.12);
+        }
+
+        .video-thumb-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            display: block;
+        }
+
+        .video-thumb-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .video-card:hover .video-thumb-container img {
+            transform: scale(1.05);
+        }
+
+        /* Efeito de Play por cima da imagem */
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .play-icon {
+            width: 54px;
+            height: 54px;
+            background: #FF0000;
+            color: #FFFFFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            padding-left: 3px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .video-thumb-container:hover .play-overlay {
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .video-thumb-container:hover .play-icon {
+            transform: scale(1.15);
+            background: #CC0000;
+        }
+
+        .card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .card-tag {
+            align-self: flex-start;
+            background: #EBF3F7;
+            color: #2C7A7B;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1A1C24;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .card-desc {
+            font-size: 0.88rem;
+            color: #55545E;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .btn-watch {
+            margin-top: auto;
+            align-self: flex-start;
+            color: #8367C7;
+            font-weight: 700;
+            font-size: 0.88rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .btn-watch:hover {
+            color: #6A50A7;
+            text-decoration: underline;
+        }
+
+        /* LISTA DE ARTIGOS CIENTÍFICOS */
+        .articles-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .article-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 25px rgba(131, 103, 199, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(131, 103, 199, 0.12);
+        }
+
+        .article-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .pdf-icon {
+            background: #FEE2E2;
+            color: #EF4444;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .article-details h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1A1C24;
+            margin-bottom: 6px;
+        }
+
+        .article-details p {
+            font-size: 0.88rem;
+            color: #55545E;
+            line-height: 1.4;
+        }
+
+        .btn-download {
+            background-color: #FFFFFF;
+            border: 1.5px solid #E2D9F3;
+            color: #8367C7;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-download:hover {
+            background-color: #8367C7;
+            color: #FFFFFF;
+            border-color: #8367C7;
+        }
+
+        /* BOTÃO FLUTUANTE ESC */
+        .floating-esc-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #EF4444;
+            color: #FFFFFF;
+            border: 2px solid #DC2626;
+            padding: 15px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+            z-index: 999;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .floating-esc-btn:hover {
+            background-color: #DC2626;
+            transform: scale(1.05);
+        }
+
+        /* RODAPÉ */
+        footer {
+            background-color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #92919A;
+            border-top: 1px solid #EAE6F0;
+            margin-top: auto;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 1100px) {
+            header {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+            nav {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .article-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .btn-download {
+                width: 100%;
+                justify-content: center;
+            }
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 12px 10px;
+            }
+            nav {
+                gap: 10px;
+            }
+            .nav-link {
+                font-size: 0.82rem;
+            }
+            .tabs-container {
+                flex-direction: column;
+            }
+            .tab-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BOTÃO FLUTUANTE ESC -->
+    <button class="floating-esc-btn" onclick="exitUrgent()">
+        ⚠️ SAIR RÁPIDO (ESC)
+    </button>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <div class="logo-area">
+            <img src="./logo.png" alt="Logo Voz Segura" class="logo-img">
+            <div class="logo-texto">
+                <h2>XXXX</h2>
+                <span>Juntos contra o bullying</span>
+            </div>
+        </div>
+        
+        <nav>
+            <a href="index.html" class="nav-link">Início</a>
+            <a href="meditacao.html" class="nav-link">Meditação</a>
+            <a href="autoavaliacao.html" class="nav-link">Autoavaliação (PHQ-9)</a>
+            <a href="relato.html" class="nav-link">Relatar caso</a>
+            <a href="noticias.html" class="nav-link active">Notícias e Ciência</a>
+            <a href="denuncia.html" class="nav-link">Canais de denúncia</a>
+        </nav>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-container">
+        
+        <div class="page-header">
+            <h1>Notícias e Conhecimento Científico</h1>
+            <p>Acesse materiais educativos, reportagens e artigos de pesquisa para se informar e conscientizar.</p>
+        </div>
+
+        <!-- ABAS DE NAVEGAÇÃO -->
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="openTab('videos', this)">
+                🎬 Vídeos Informativos
+            </button>
+            <button class="tab-btn" onclick="openTab('artigos', this)">
+                📄 Artigos e Pesquisas (PDF)
+            </button>
+        </div>
+
+        <!-- ABA 1: VÍDEOS COM IMAGENS -->
+        <div id="videos" class="tab-content active">
+            <div class="video-grid">
+                
+                <!-- Vídeo 1: img1.png -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=u72PrDU9dYc" target="_blank" class="video-thumb-container">
+                        <img src="./img1.png" alt="Casos de bullying no Brasil - Drauzio Varella">
+                        <div class="play-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                    </a>
+                    <div class="card-body">
+                        <span class="card-tag">Saúde & Mente</span>
+                        <h3 class="card-title">Casos de bullying no Brasil e Impactos na Saúde</h3>
+                        <p class="card-desc">Drauzio Varella analisa o crescimento dos casos de intimidação sistemática, seus reflexos no desenvolvimento cerebral e na saúde mental das crianças e adolescentes.</p>
+                        <a href="https://www.youtube.com/watch?v=u72PrDU9dYc" target="_blank" class="btn-watch">▶ Assistir no YouTube</a>
+                    </div>
+                </div>
+
+                <!-- Vídeo 2: img3.png -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=psieH5qBIpk" target="_blank" class="video-thumb-container">
+                        <img src="./img2.png" alt="Conheça os 8 Tipos de Bullying Escolar">
+                        <div class="play-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                    </a>
+                    <div class="card-body">
+                        <span class="card-tag">Legislação & Direitos</span>
+                        <h3 class="card-title">Conheça os 8 Tipos de Bullying Escolar</h3>
+                        <p class="card-desc">Informativo do Senado Federal detalhando os conceitos e caracterizações de intimidação física, psicológica, moral, virtual (cyberbullying) e material no ambiente escolar.</p>
+                        <a href="https://www.youtube.com/watch?v=psieH5qBIpk" target="_blank" class="btn-watch">▶ Assistir no YouTube</a>
+                    </div>
+                </div>
+
+                <!-- Vídeo 3: img4.png (ou img.png) -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=eQCm-Yl0oZs" target="_blank" class="video-thumb-container">
+                        <img src="./img3.png" alt="Somos Todos Diferentes – Respeito às Diferenças">
+                        <div class="play-overlay">
+                            <div class="play-icon">▶</div>
+                        </div>
+                    </a>
+                    <div class="card-body">
+                        <span class="card-tag">Conscientização</span>
+                        <h3 class="card-title">Somos Todos Diferentes – Respeito às Diferenças</h3>
+                        <p class="card-desc">Uma história ilustrativa e educativa que aborda a importância do acolhimento, da empatia e da valorização das diversidades desde os primeiros anos escolares.</p>
+                        <a href="https://www.youtube.com/watch?v=eQCm-Yl0oZs" target="_blank" class="btn-watch">▶ Assistir no YouTube</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ABA 2: ARTIGOS CIENTÍFICOS (PDF) -->
+        <div id="artigos" class="tab-content">
+            <div class="articles-list">
+                
+                <!-- Artigo 1 -->
+                <div class="article-card">
+                    <div class="article-info">
+                        <div class="pdf-icon">📄</div>
+                        <div class="article-details">
+                            <h3>Artigo Científico 01</h3>
+                            <p>Estudo abrangente e fundamentação teórica sobre os impactos do bullying e cyberbullying no ambiente educacional contemporâneo.</p>
+                        </div>
+                    </div>
+                    <a href="artigo1.pdf" target="_blank" class="btn-download">
+                        📥 Abrir PDF
+                    </a>
+                </div>
+
+                <!-- Artigo 2 -->
+                <div class="article-card">
+                    <div class="article-info">
+                        <div class="pdf-icon">📄</div>
+                        <div class="article-details">
+                            <h3>Artigo Científico 02</h3>
+                            <p>Pesquisa acadêmica voltada para estratégias de intervenção, apoio psicológico e prevenção da violência nas escolas.</p>
+                        </div>
+                    </div>
+                    <a href="artigo2.pdf" target="_blank" class="btn-download">
+                        📥 Abrir PDF
+                    </a>
+                </div>
+
+                <!-- Artigo 3 -->
+                <div class="article-card">
+                    <div class="article-info">
+                        <div class="pdf-icon">📄</div>
+                        <div class="article-details">
+                            <h3>Artigo Científico 03</h3>
+                            <p>Análise de políticas públicas, papel da família e ambiente comunitário na promoção da saúde mental de estudantes.</p>
+                        </div>
+                    </div>
+                    <a href="artigo3.pdf" target="_blank" class="btn-download">
+                        📥 Abrir PDF
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        &copy; 2026 XXXX &bull; Projeto desenvolvido pela Escola Elça Carvalho da Fonseca. Todos os direitos reservados.
+    </footer>
+
+    <!-- SCRIPT DAS ABAS E BOTÃO DE EMERGÊNCIA -->
+    <script>
+        function openTab(tabId, btn) {
+            // Oculta todos os conteúdos de abas
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove o estado ativo de todos os botões
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Ativa a aba e o botão selecionados
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        function exitUrgent() {
+            window.location.href = 'https://www.google.com';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                exitUrgent();
+            }
+        });
+    </script>
+</body>
+</html>

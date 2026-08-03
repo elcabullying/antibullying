@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XXXX - Canais de Denúncia e Apoio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #F8F6FC, #F0F4F8, #F2F8F7);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #2D2D32;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* CABEÇALHO PADRÃO DO PROJETO */
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 14px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #EAE5F2; 
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-texto h2 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #1A1C24;
+            line-height: 1.1;
+        }
+
+        .logo-texto span {
+            font-size: 0.78rem;
+            color: #706F78;
+            font-weight: 500;
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #62606B;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding-bottom: 4px;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #1A1C24;
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #8367C7; 
+            border-radius: 2px;
+        }
+
+        /* CONTEÚDO PRINCIPAL */
+        .main-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            color: #1A1C24;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            color: #62606B;
+            font-size: 1rem;
+        }
+
+        /* LISTA MINIMALISTA DE CANAIS */
+        .channels-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .channel-item {
+            background: #FFFFFF;
+            border: 1px solid #EAE6F0;
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        }
+
+        .channel-item:hover {
+            border-color: #D3C7EE;
+            box-shadow: 0 8px 20px rgba(131, 103, 199, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .channel-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            flex: 1;
+        }
+
+        .icon-box {
+            width: 44px;
+            height: 44px;
+            background-color: #F4F0FA;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .details h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #1A1C24;
+            margin-bottom: 4px;
+        }
+
+        .details p {
+            font-size: 0.88rem;
+            color: #62606B;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+
+        .meta-text {
+            font-size: 0.8rem;
+            color: #8C8A94;
+            display: block;
+        }
+
+        /* AÇÕES (DIREITA) */
+        .channel-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .btn-call {
+            background-color: #8367C7;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-call:hover {
+            background-color: #6A50A7;
+        }
+
+        .secondary-link {
+            font-size: 0.8rem;
+            color: #8367C7;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .secondary-link:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+
+        /* BOTÃO FLUTUANTE ESC */
+        .floating-esc-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #EF4444;
+            color: #FFFFFF;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25);
+            z-index: 999;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .floating-esc-btn:hover {
+            background-color: #DC2626;
+            transform: scale(1.03);
+        }
+
+        /* RODAPÉ */
+        footer {
+            background-color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #92919A;
+            border-top: 1px solid #EAE6F0;
+            margin-top: auto;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 800px) {
+            header {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+            nav {
+                justify-content: center;
+            }
+            .channel-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            .channel-actions {
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                border-top: 1px solid #F4F0FA;
+                padding-top: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BOTÃO FLUTUANTE ESC -->
+    <button class="floating-esc-btn" onclick="exitUrgent()">
+        ⚠️ SAIR RÁPIDO (ESC)
+    </button>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <div class="logo-area">
+            <img src="./logo.png" alt="Logo Voz Segura" class="logo-img">
+            <div class="logo-texto">
+                <h2>XXXX</h2>
+                <span>Juntos contra o bullying</span>
+            </div>
+        </div>
+        
+        <nav>
+            <a href="index.html" class="nav-link">Início</a>
+            <a href="meditacao.html" class="nav-link">Meditação</a>
+            <a href="autoavaliacao.html" class="nav-link">Autoavaliação (PHQ-9)</a>
+            <a href="relato.html" class="nav-link">Relatar caso</a>
+            <a href="noticias.html" class="nav-link">Notícias e Ciência</a>
+            <a href="denuncia.html" class="nav-link active">Canais de denúncia</a>
+        </nav>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-container">
+        
+        <div class="page-header">
+            <h1>Canais de Apoio e Denúncia</h1>
+            <p>Rede de proteção e atendimento disponível para você ou alguém que precisa de ajuda.</p>
+        </div>
+
+        <div class="channels-list">
+
+            <!-- Item 1: CVV -->
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="icon-box">💛</div>
+                    <div class="details">
+                        <h3>CVV - Centro de Valorização da Vida</h3>
+                        <p>Apoio emocional gratuito, sigiloso e humanizado.</p>
+                        <span class="meta-text">🕒 Atendimento 24 horas</span>
+                    </div>
+                </div>
+                <div class="channel-actions">
+                    <a href="tel:188" class="btn-call">📞 Ligar 188</a>
+                    <a href="https://www.cvv.org.br" target="_blank" class="secondary-link">Acessar site ↗</a>
+                </div>
+            </div>
+
+            <!-- Item 2: SAMU -->
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="icon-box">🚑</div>
+                    <div class="details">
+                        <h3>SAMU (Atendimento Móvel)</h3>
+                        <p>Suporte básico e avançado em emergências e urgências médicas.</p>
+                        <span class="meta-text">📍 Rua Sebastião Buriti, nº 10, Centro, Cuité - PB &bull; 24h</span>
+                    </div>
+                </div>
+                <div class="channel-actions">
+                    <a href="tel:192" class="btn-call">📞 Disque 192</a>
+                </div>
+            </div>
+
+            <!-- Item 3: Polícia Militar -->
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="icon-box">🛡️</div>
+                    <div class="details">
+                        <h3>Polícia Militar</h3>
+                        <p>Atendimento de emergência e apoio à segurança pública.</p>
+                        <span class="meta-text">📍 Francisco Theodoro da Fonseca, Bairro das Graças</span>
+                    </div>
+                </div>
+                <div class="channel-actions">
+                    <a href="tel:190" class="btn-call">📞 Disque 190</a>
+                </div>
+            </div>
+
+            <!-- Item 4: Conselho Tutelar -->
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="icon-box">⚖️</div>
+                    <div class="details">
+                        <h3>Conselho Tutelar de Cuité</h3>
+                        <p>Garantia dos direitos da criança e do adolescente.</p>
+                        <span class="meta-text">📍 Rua 25 de Janeiro, nº 128, Centro &bull; Seg a Sex: 08h-12h | 14h-17h</span>
+                    </div>
+                </div>
+                <div class="channel-actions">
+                    <a href="tel:83996174373" class="btn-call">📞 (83) 99617-4373</a>
+                    <a href="mailto:ctcuite2003@hotmail.com" class="secondary-link">Enviar e-mail ✉️</a>
+                </div>
+            </div>
+
+            <!-- Item 5: Assistência Social -->
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="icon-box">🤝</div>
+                    <div class="details">
+                        <h3>Secretaria Municipal de Assistência Social</h3>
+                        <p>Apoio comunitário e serviços de assistência pública.</p>
+                        <span class="meta-text">📍 Rua Maria Quitéria, nº 29, Centro &bull; Seg-Qui: 08h-12h | Sex: 08h-14h</span>
+                    </div>
+                </div>
+                <div class="channel-actions">
+                    <a href="tel:83996661141" class="btn-call">📞 (83) 99666-1141</a>
+                </div>
+            </div>
+
+            <!-- Item 6: Escola Elça Carvalho -->
+            <div class="channel-item">
+                <div class="channel-info">
+                    <div class="icon-box">🏫</div>
+                    <div class="details">
+                        <h3>Escola Elça Carvalho da Fonseca</h3>
+                        <p>Atendimento e orientação direta na unidade escolar.</p>
+                        <span class="meta-text">📍 Rua José Cassimiro Dantas, nº 247, Centro, CEP 58175-000</span>
+                    </div>
+                </div>
+                <div class="channel-actions">
+                    <a href="tel:83996554054" class="btn-call">📞 (83) 99655-4054</a>
+                    <a href="mailto:escolaelcacarvalhodafonseca@gmail.com" class="secondary-link">Enviar e-mail ✉️</a>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        &copy; 2026 XXXX &bull; Projeto desenvolvido pela Escola Elça Carvalho da Fonseca. Todos os direitos reservados.
+    </footer>
+
+    <!-- SCRIPT DO BOTÃO DE EMERGÊNCIA -->
+    <script>
+        function exitUrgent() {
+            window.location.href = 'https://www.google.com';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                exitUrgent();
+            }
+        });
+    </script>
+</body>
+</html>
