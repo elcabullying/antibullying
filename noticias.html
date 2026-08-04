@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XXXX - Notícias e Ciência</title>
+    <title>Voz Segura - Notícias e Ciência</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap');
+
+        :root {
+            --primary: #8367C7;
+            --primary-hover: #6B4EB3;
+            --bg-color: #EBF3F7;
+            --header-bg: #F0EBF7;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1C24;
+            --text-muted: #706F78;
+            --border-color: #E2D9F3;
+        }
 
         * {
             margin: 0;
@@ -18,28 +29,28 @@
             background: linear-gradient(135deg, #F4F0FA, #EBF3F7, #EBF7F5);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            color: #1A1C24;
+            color: var(--text-color);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             position: relative;
         }
 
-        /* Animação suave para o fundo */
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* CABEÇALHO PADRÃO DO PROJETO */
+        /* --- CABEÇALHO RESPONSIVO COM MENU HAMBÚRGUER --- */
         header {
-            background-color: #F0EBF7; 
-            padding: 14px 5%;
+            background-color: rgba(240, 235, 247, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #E2D9F3; 
+            border-bottom: 2px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -49,31 +60,43 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            text-decoration: none;
         }
 
         .logo-img {
-            height: 36px;
+            height: 40px;
             width: auto;
             object-fit: contain;
         }
 
         .logo-texto h2 {
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            color: #1A1C24;
+            color: var(--text-color);
             line-height: 1.1;
         }
 
         .logo-texto span {
-            font-size: 0.78rem;
-            color: #706F78;
+            font-size: 0.8rem;
+            color: var(--text-muted);
             font-weight: 500;
+        }
+
+        /* BOTÃO HAMBÚRGUER (CELULAR) */
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 5px;
         }
 
         nav {
             display: flex;
-            gap: 18px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 24px;
         }
 
         .nav-link {
@@ -81,13 +104,13 @@
             color: #55545E;
             font-size: 0.9rem;
             font-weight: 500;
-            padding-bottom: 4px;
+            padding-bottom: 6px;
             position: relative;
             transition: color 0.2s;
         }
 
         .nav-link:hover, .nav-link.active {
-            color: #1A1C24;
+            color: var(--text-color);
             font-weight: 600;
         }
 
@@ -98,15 +121,15 @@
             left: 0;
             width: 100%;
             height: 3px;
-            background-color: #8367C7; 
+            background-color: var(--primary); 
             border-radius: 2px;
         }
 
-        /* CONTEÚDO PRINCIPAL */
+        /* --- CONTEÚDO PRINCIPAL --- */
         .main-container {
             max-width: 1100px;
             margin: 40px auto;
-            padding: 0 20px;
+            padding: 0 20px 80px 20px;
             flex: 1;
             width: 100%;
         }
@@ -118,7 +141,7 @@
 
         .page-header h1 {
             font-size: 2.2rem;
-            color: #1A1C24;
+            color: var(--text-color);
             font-weight: 700;
             margin-bottom: 10px;
             letter-spacing: -0.5px;
@@ -139,7 +162,7 @@
 
         .tab-btn {
             background: rgba(255, 255, 255, 0.7);
-            border: 2px solid #E2D9F3;
+            border: 2px solid var(--border-color);
             padding: 12px 28px;
             border-radius: 50px;
             font-size: 0.95rem;
@@ -154,12 +177,12 @@
 
         .tab-btn:hover {
             background: #FFFFFF;
-            color: #8367C7;
-            border-color: #8367C7;
+            color: var(--primary);
+            border-color: var(--primary);
         }
 
         .tab-btn.active {
-            background: linear-gradient(135deg, #9d85db 0%, #8367C7 100%);
+            background: linear-gradient(135deg, #9d85db 0%, var(--primary) 100%);
             color: #FFFFFF;
             border-color: transparent;
             box-shadow: 0 6px 20px rgba(131, 103, 199, 0.25);
@@ -180,15 +203,15 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* GRID DE VÍDEOS COM IMAGENS */
+        /* GRID DE VÍDEOS */
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
         }
 
         .video-card {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 20px;
@@ -223,7 +246,6 @@
             transform: scale(1.05);
         }
 
-        /* Efeito de Play por cima da imagem */
         .play-overlay {
             position: absolute;
             top: 0;
@@ -283,7 +305,7 @@
         .card-title {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #1A1C24;
+            color: var(--text-color);
             margin-bottom: 8px;
             line-height: 1.3;
         }
@@ -298,7 +320,7 @@
         .btn-watch {
             margin-top: auto;
             align-self: flex-start;
-            color: #8367C7;
+            color: var(--primary);
             font-weight: 700;
             font-size: 0.88rem;
             text-decoration: none;
@@ -309,7 +331,7 @@
         }
 
         .btn-watch:hover {
-            color: #6A50A7;
+            color: var(--primary-hover);
             text-decoration: underline;
         }
 
@@ -323,7 +345,7 @@
         }
 
         .article-card {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 20px;
@@ -363,7 +385,7 @@
         .article-details h3 {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #1A1C24;
+            color: var(--text-color);
             margin-bottom: 6px;
         }
 
@@ -375,8 +397,8 @@
 
         .btn-download {
             background-color: #FFFFFF;
-            border: 1.5px solid #E2D9F3;
-            color: #8367C7;
+            border: 1.5px solid var(--border-color);
+            color: var(--primary);
             padding: 10px 20px;
             border-radius: 50px;
             font-size: 0.88rem;
@@ -390,31 +412,34 @@
         }
 
         .btn-download:hover {
-            background-color: #8367C7;
+            background-color: var(--primary);
             color: #FFFFFF;
-            border-color: #8367C7;
+            border-color: var(--primary);
         }
 
         /* BOTÃO FLUTUANTE ESC */
-        .floating-esc-btn {
+        .btn-quick-exit {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 24px;
+            right: 24px;
             background-color: #EF4444;
-            color: #FFFFFF;
-            border: 2px solid #DC2626;
-            padding: 15px 24px;
-            border-radius: 50px;
-            font-weight: 700;
+            color: white;
+            border: none;
+            padding: 12px 20px;
             font-size: 0.9rem;
-            letter-spacing: 0.5px;
+            font-weight: 800;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
-            z-index: 999;
-            transition: transform 0.2s, background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+            transition: background-color 0.2s, transform 0.2s;
+            text-decoration: none;
         }
 
-        .floating-esc-btn:hover {
+        .btn-quick-exit:hover {
             background-color: #DC2626;
             transform: scale(1.05);
         }
@@ -430,70 +455,105 @@
             margin-top: auto;
         }
 
-        /* RESPONSIVIDADE */
-        @media (max-width: 1100px) {
-            header {
-                flex-direction: column;
-                gap: 12px;
-                text-align: center;
-            }
-            nav {
-                justify-content: center;
-            }
-        }
+        /* REGRAS DE RESPONSIVIDADE (NOTEBOOK / TABLET / CELULAR) */
 
-        @media (max-width: 768px) {
+        /* Tablets e Celulares Maiores */
+        @media (max-width: 820px) {
+            .hamburger-btn {
+                display: block; /* Exibe o botão das 3 barrinhas no mobile */
+            }
+
+            nav {
+                display: none; /* Esconde o menu por padrão no celular */
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #F4F0FA;
+                padding: 20px;
+                border-bottom: 2px solid var(--border-color);
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                gap: 16px;
+            }
+
+            nav.active {
+                display: flex; /* Abre o menu quando clicado */
+            }
+
+            .nav-link.active::after {
+                display: none;
+            }
+
+            .main-container {
+                margin: 20px auto;
+                padding: 0 15px 80px 15px;
+            }
+
             .article-card {
                 flex-direction: column;
                 align-items: flex-start;
             }
+
             .btn-download {
                 width: 100%;
                 justify-content: center;
             }
-            .page-header h1 {
-                font-size: 1.8rem;
-            }
         }
 
+        /* Dispositivos Móveis (Celulares) */
         @media (max-width: 600px) {
             header {
-                padding: 12px 10px;
+                padding: 12px 5%;
             }
-            nav {
-                gap: 10px;
+
+            .page-header h1 {
+                font-size: 1.5rem;
             }
-            .nav-link {
-                font-size: 0.82rem;
+
+            .page-header p {
+                font-size: 0.9rem;
             }
+
             .tabs-container {
                 flex-direction: column;
+                gap: 10px;
             }
+
             .tab-btn {
                 width: 100%;
                 justify-content: center;
+                padding: 10px 18px;
+                font-size: 0.88rem;
+            }
+
+            .btn-quick-exit {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 16px;
+                font-size: 0.75rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- BOTÃO FLUTUANTE ESC -->
-    <button class="floating-esc-btn" onclick="exitUrgent()">
-        ⚠️ SAIR RÁPIDO (ESC)
-    </button>
-
     <!-- CABEÇALHO -->
     <header>
-        <div class="logo-area">
-            <img src="./logo.png" alt="Logo Voz Segura" class="logo-img">
+        <a href="index.html" class="logo-area">
+            <img src="./logo.png" alt="Logo Voz Segura" class="logo-img" onerror="this.style.display='none'">
             <div class="logo-texto">
-                <h2>XXXX</h2>
+                <h2>Voz Segura</h2>
                 <span>Juntos contra o bullying</span>
             </div>
-        </div>
-        
-        <nav>
+        </a>
+
+        <!-- BOTÃO TRÊS BARRINHAS -->
+        <button class="hamburger-btn" onclick="toggleMenu()" aria-label="Abrir Menu">
+            ☰
+        </button>
+
+        <nav id="nav-menu">
             <a href="index.html" class="nav-link">Início</a>
             <a href="meditacao.html" class="nav-link">Meditação</a>
             <a href="autoavaliacao.html" class="nav-link">Autoavaliação (PHQ-9)</a>
@@ -525,7 +585,7 @@
         <div id="videos" class="tab-content active">
             <div class="video-grid">
                 
-                <!-- Vídeo 1: img1.png -->
+                <!-- Vídeo 1 -->
                 <div class="video-card">
                     <a href="https://www.youtube.com/watch?v=u72PrDU9dYc" target="_blank" class="video-thumb-container">
                         <img src="./img1.png" alt="Casos de bullying no Brasil - Drauzio Varella">
@@ -541,7 +601,7 @@
                     </div>
                 </div>
 
-                <!-- Vídeo 2: img3.png -->
+                <!-- Vídeo 2 -->
                 <div class="video-card">
                     <a href="https://www.youtube.com/watch?v=psieH5qBIpk" target="_blank" class="video-thumb-container">
                         <img src="./img2.png" alt="Conheça os 8 Tipos de Bullying Escolar">
@@ -557,7 +617,7 @@
                     </div>
                 </div>
 
-                <!-- Vídeo 3: img4.png (ou img.png) -->
+                <!-- Vídeo 3 -->
                 <div class="video-card">
                     <a href="https://www.youtube.com/watch?v=eQCm-Yl0oZs" target="_blank" class="video-thumb-container">
                         <img src="./img3.png" alt="Somos Todos Diferentes – Respeito às Diferenças">
@@ -627,34 +687,37 @@
 
     </main>
 
+    <!-- BOTÃO SAIR RÁPIDO (ESC) -->
+    <a href="https://www.google.com" class="btn-quick-exit" id="quickExit">
+        ⚠️ SAIR RÁPIDO (ESC)
+    </a>
+
     <!-- RODAPÉ -->
     <footer>
-        &copy; 2026 XXXX &bull; Projeto desenvolvido pela Escola Elça Carvalho da Fonseca. Todos os direitos reservados.
+        &copy; 2026 Voz Segura &bull; Projeto desenvolvido pela Escola Elça Carvalho da Fonseca. Todos os direitos reservados.
     </footer>
 
-    <!-- SCRIPT DAS ABAS E BOTÃO DE EMERGÊNCIA -->
+    <!-- SCRIPTS -->
     <script>
+        function toggleMenu() {
+            const nav = document.getElementById('nav-menu');
+            nav.classList.toggle('active');
+        }
+
         function openTab(tabId, btn) {
-            // Oculta todos os conteúdos de abas
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
 
-            // Remove o estado ativo de todos os botões
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(button => button.classList.remove('active'));
 
-            // Ativa a aba e o botão selecionados
             document.getElementById(tabId).classList.add('active');
             btn.classList.add('active');
         }
 
-        function exitUrgent() {
-            window.location.href = 'https://www.google.com';
-        }
-
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                exitUrgent();
+                window.location.href = 'https://www.google.com';
             }
         });
     </script>
