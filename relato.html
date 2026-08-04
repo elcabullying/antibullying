@@ -4,18 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voz Segura - Relatar caso</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #8367C7;
             --primary-hover: #6B4EB3;
             --bg-color: #EBF3F7;
-            --header-bg: #F0EAF7;
+            --header-bg: #F3EDF7;
             --card-bg: #FFFFFF;
             --text-color: #1A1C24;
-            --text-muted: #6C6C75;
+            --text-muted: #706F78;
             --border-color: #E2D9F3;
             --error-color: #E53935;
             --success-color: #2E7D32;
@@ -25,7 +22,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -34,13 +31,14 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- CABEÇALHO IDÊNTICO ÀS IMAGENS --- */
+        /* --- CABEÇALHO IDÊNTICO ÀS DEMAIS PÁGINAS --- */
         header {
             background-color: var(--header-bg);
-            border-bottom: 1px solid #E5DEF0;
-            padding: 16px 60px;
+            border-bottom: 1px solid #E6DDF0;
+            padding: 14px 48px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -58,39 +56,38 @@
         }
 
         .logo-container img {
-            height: 38px;
+            height: 32px;
             width: auto;
             object-fit: contain;
         }
 
         .logo-text h1 {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: #1A1C24;
             font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.01em;
+            line-height: 1.1;
         }
 
         .logo-text p {
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             color: #706F78;
             font-weight: 400;
         }
 
         nav {
             display: flex;
-            gap: 28px;
+            gap: 24px;
             align-items: center;
         }
 
         nav a {
             text-decoration: none;
-            color: #4A4A52;
-            font-size: 0.92rem;
-            font-weight: 500;
-            padding: 6px 0;
+            color: #3A3A42;
+            font-size: 0.9rem;
+            font-weight: 400;
+            padding: 4px 0;
             position: relative;
-            transition: color 0.2s ease;
+            transition: color 0.15s ease;
         }
 
         nav a:hover {
@@ -98,19 +95,19 @@
         }
 
         nav a.active {
-            color: var(--primary);
+            color: #7B52B9;
             font-weight: 700;
         }
 
-        /* Linha indicadora da aba ativa */
+        /* Linha indicadora roxa abaixo do item ativo */
         nav a.active::after {
             content: '';
             position: absolute;
-            bottom: -17px;
+            bottom: -15px;
             left: 0;
             width: 100%;
             height: 3px;
-            background-color: var(--primary);
+            background-color: #7B52B9;
             border-radius: 2px 2px 0 0;
         }
 
@@ -120,39 +117,39 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 40px 20px 80px 20px;
+            padding: 36px 20px 80px 20px;
         }
 
         .container {
             background-color: var(--card-bg);
-            border-radius: 24px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.03);
+            border-radius: 20px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.02);
             width: 100%;
             max-width: 720px;
             padding: 40px;
         }
 
         .main-title {
-            font-size: 2.2rem;
-            color: #1A1C24;
+            font-size: 2.1rem;
+            color: #111111;
             margin-bottom: 12px;
             font-weight: 800;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
         }
 
         .main-subtitle {
-            color: #555555;
-            font-size: 0.98rem;
+            color: #4A4A52;
+            font-size: 0.95rem;
             line-height: 1.5;
             margin-bottom: 24px;
         }
 
-        /* Alert de Segurança */
+        /* Alerta de Segurança */
         .security-alert {
             background-color: #E6F7F7;
             border: 1px solid #BCEBEB;
-            border-radius: 12px;
-            padding: 14px 18px;
+            border-radius: 10px;
+            padding: 14px 16px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -163,7 +160,7 @@
         }
 
         .security-alert span {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         /* Formulário */
@@ -175,7 +172,7 @@
             display: block;
             font-weight: 700;
             margin-bottom: 8px;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             color: #1A1C24;
         }
 
@@ -188,10 +185,10 @@
         select,
         textarea {
             width: 100%;
-            padding: 14px 16px;
+            padding: 13px 15px;
             border: 1px solid #D6D6DF;
             border-radius: 12px;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             background-color: #FFFFFF;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
@@ -214,12 +211,12 @@
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 16px;
-            font-size: 1rem;
+            padding: 15px;
+            font-size: 0.95rem;
             font-weight: 700;
             border-radius: 12px;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.1s;
+            transition: background-color 0.2s;
             margin-top: 10px;
         }
 
@@ -240,8 +237,8 @@
             background-color: #EF4444;
             color: white;
             border: none;
-            padding: 14px 22px;
-            font-size: 0.95rem;
+            padding: 12px 20px;
+            font-size: 0.9rem;
             font-weight: 800;
             border-radius: 30px;
             box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);
@@ -250,13 +247,12 @@
             align-items: center;
             gap: 8px;
             z-index: 1000;
-            transition: background-color 0.2s, transform 0.2s;
+            transition: background-color 0.2s;
             text-decoration: none;
         }
 
         .btn-quick-exit:hover {
             background-color: #DC2626;
-            transform: translateY(-2px);
         }
 
         /* Feedback Messages */
@@ -264,7 +260,7 @@
             margin-top: 20px;
             padding: 14px;
             border-radius: 10px;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             text-align: center;
             display: none;
             word-break: break-word;
