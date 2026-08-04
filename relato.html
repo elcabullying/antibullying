@@ -122,20 +122,20 @@
             margin-top: 16px;
             padding: 12px;
             border-radius: 8px;
-            display: none;
             font-size: 0.95rem;
             text-align: center;
+            display: none;
         }
 
-        #feedback.success {
-            display: block;
+        .success {
+            display: block !important;
             background-color: #E8F5E9;
             color: var(--success-color);
             border: 1px solid #A5D6A7;
         }
 
-        #feedback.error {
-            display: block;
+        .error {
+            display: block !important;
             background-color: #FFEBEE;
             color: var(--error-color);
             border: 1px solid #FFCDD2;
@@ -222,33 +222,20 @@
         const feedback = document.getElementById('feedback');
 
         form.addEventListener('submit', async (e) => {
-            // Evita que a página seja recarregada ao enviar o formulário
             e.preventDefault();
 
-            // Bloqueia o botão e dá feedback visual de envio
             btnEnviar.disabled = true;
             btnEnviar.textContent = 'Enviando relato...';
-            feedback.className = '';
             feedback.style.display = 'none';
+            feedback.className = '';
 
-            // Monta o objeto com os dados digitados
-            const dados = {
-                nome: document.getElementById('nome').value,
-                turma: document.getElementById('turma').value,
-                vitima_testemunha: document.getElementById('vitima_testemunha').value,
-                tipo_bullying: document.getElementById('tipo_bullying').value,
-                local: document.getElementById('local').value,
-                frequencia: document.getElementById('frequencia').value,
-                descricao: document.getElementById('descricao').value
-            };
+            const formData = new FormData(form);
+            const dados = Object.fromEntries(formData.entries());
 
             try {
-                // Rota relativa: '/api/relato' funciona tanto local quanto na Vercel
                 const response = await fetch('/api/relato', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(dados)
                 });
 
@@ -260,14 +247,15 @@
                     form.reset();
                 } else {
                     feedback.className = 'error';
-                    feedback.textContent = `❌ ${resultado.mensagem || 'Ocorreu um erro ao processar seu relato.'}`;
+                    feedback.textContent = `❌ ${resultado.mensagem || 'Ocorreu um erro ao enviar.'}`;
+                    if (resultado.detalhes) {
+                        feedback.textContent += ` (${resultado.detalhes})`;
+                    }
                 }
             } catch (error) {
-                console.error('Erro de requisição:', error);
                 feedback.className = 'error';
-                feedback.textContent = '❌ Erro de conexão ao enviar o relato. Verifique sua rede e tente novamente.';
+                feedback.textContent = '❌ Erro de conexão. Verifique sua rede e tente novamente.';
             } finally {
-                // Reativa o botão
                 btnEnviar.disabled = false;
                 btnEnviar.textContent = 'Enviar Relato com Segurança';
             }

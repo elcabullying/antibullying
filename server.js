@@ -1,4 +1,3 @@
-// Importação dos módulos necessários
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
@@ -12,10 +11,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Servir arquivos estáticos (HTML, CSS, imagens) da mesma pasta
+// Servir arquivos estáticos (HTML, CSS, JS) da própria pasta
 app.use(express.static(path.join(__dirname)));
 
-// Rota POST para receber o relato do formulário HTML
+// Rota para receber o relato do formulário
 app.post('/api/relato', async (req, res) => {
   const { 
     nome, 
@@ -25,9 +24,9 @@ app.post('/api/relato', async (req, res) => {
     local, 
     descricao, 
     frequencia 
-  } = req.body;
+  } = req.body || {};
 
-  // Validação básica de campos obrigatórios do HTML
+  // Validação dos campos obrigatórios
   if (!descricao || !tipo_bullying || !local || !vitima_testemunha) {
     return res.status(400).json({ 
       success: false, 
@@ -35,16 +34,15 @@ app.post('/api/relato', async (req, res) => {
     });
   }
 
-  // Criação do Transporter dentro da requisição (Recomendado para Vercel Serverless)
+  // Criação do transportador do e-mail
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.vascbianca485@gmail.com,
-      pass: process.env.otmyqgbgnazvmpsp
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
     }
   });
 
-  // Template do E-mail formatado
   const mailOptions = {
     from: `"Voz Segura" <${process.env.EMAIL_USER}>`,
     to: process.env.EMAIL_DESTINO || process.env.EMAIL_USER,
@@ -78,7 +76,7 @@ app.post('/api/relato', async (req, res) => {
           </tr>
           <tr>
             <td style="padding: 10px;"><strong>Frequência:</strong></td>
-            <td style="padding: 10px;">${frequencia}</td>
+            <td style="padding: 10px;">${frequencia ? frequencia : '<em>Não informada</em>'}</td>
           </tr>
         </table>
 
@@ -95,7 +93,7 @@ app.post('/api/relato', async (req, res) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log(`📬 Relato enviado com sucesso!`);
+    console.log('📬 Relato enviado por e-mail com sucesso!');
     return res.status(200).json({ 
       success: true, 
       mensagem: 'Relato enviado com sucesso.' 
@@ -110,13 +108,12 @@ app.post('/api/relato', async (req, res) => {
   }
 });
 
-// Inicialização local do Servidor
+// Executa localmente apenas se não estiver na Vercel
 if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
-    console.log(`Acesse a aplicação em: http://localhost:${PORT}/relato.html`);
+    console.log(`Acesse em: http://localhost:${PORT}/relato.html`);
   });
 }
 
-// Exportação obrigatória para a Vercel funcionar
 module.exports = app;
