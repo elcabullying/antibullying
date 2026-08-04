@@ -11,10 +11,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Servir arquivos estáticos (HTML, CSS, JS) da própria pasta
+// Servir arquivos estáticos (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname)));
 
-// Rota para receber o relato do formulário
+// Rota POST para receber o relato
 app.post('/api/relato', async (req, res) => {
   const { 
     nome, 
@@ -34,9 +34,11 @@ app.post('/api/relato', async (req, res) => {
     });
   }
 
-  // Criação do transportador do e-mail
+  // Configuração explícita para o Gmail em ambiente Serverless (Vercel)
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // Conexão SSL direta na porta 465
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
@@ -93,26 +95,24 @@ app.post('/api/relato', async (req, res) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log('📬 Relato enviado por e-mail com sucesso!');
+    console.log('📬 Relato enviado com sucesso!');
     return res.status(200).json({ 
       success: true, 
       mensagem: 'Relato enviado com sucesso.' 
     });
   } catch (error) {
-    console.error('❌ Erro ao enviar o e-mail:', error);
+    console.error('❌ Erro no envio do e-mail:', error);
     return res.status(500).json({ 
       success: false, 
-      mensagem: 'Erro interno ao tentar enviar o relato por e-mail.',
+      mensagem: 'Erro de autenticação ou envio no servidor de e-mail.',
       detalhes: error.message 
     });
   }
 });
 
-// Executa localmente apenas se não estiver na Vercel
 if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
-    console.log(`Acesse em: http://localhost:${PORT}/relato.html`);
   });
 }
 
