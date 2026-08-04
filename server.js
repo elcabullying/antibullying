@@ -11,10 +11,15 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Servir arquivos estáticos (HTML, CSS, JS e Imagens)
+// Servir arquivos estáticos (CSS, JS, imagens locais se houver)
 app.use(express.static(__dirname));
 
-// Rota POST para receber o relato
+// Rota principal para carregar o index.html na raiz do site
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Rota POST para receber o relato do formulário
 app.post('/api/relato', async (req, res) => {
   const { 
     nome, 
@@ -26,7 +31,6 @@ app.post('/api/relato', async (req, res) => {
     frequencia 
   } = req.body || {};
 
-  // Validação dos campos obrigatórios
   if (!descricao || !tipo_bullying || !local || !vitima_testemunha) {
     return res.status(400).json({ 
       success: false, 
@@ -34,11 +38,10 @@ app.post('/api/relato', async (req, res) => {
     });
   }
 
-  // Configuração explícita para o Gmail em ambiente Serverless (Vercel)
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
-    secure: true, // Conexão SSL direta na porta 465
+    secure: true,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
@@ -52,9 +55,7 @@ app.post('/api/relato', async (req, res) => {
     html: `
       <div style="font-family: Arial, sans-serif; color: #1A1C24; max-width: 600px; margin: 0 auto; border: 1px solid #E2D9F3; border-radius: 12px; padding: 24px; background-color: #ffffff;">
         <h2 style="color: #8367C7; border-bottom: 2px solid #8367C7; padding-bottom: 8px; margin-top: 0;">🛡️ Novo Relato Cadastrado</h2>
-        
         <p style="font-size: 0.85rem; color: #706F78;"><strong>Data/Hora:</strong> ${new Date().toLocaleString('pt-BR')}</p>
-        
         <table style="width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.95rem;">
           <tr style="background-color: #F4F0FA;">
             <td style="padding: 10px; width: 40%;"><strong>Nome:</strong></td>
@@ -81,12 +82,10 @@ app.post('/api/relato', async (req, res) => {
             <td style="padding: 10px;">${frequencia ? frequencia : '<em>Não informada</em>'}</td>
           </tr>
         </table>
-
         <h3 style="margin-top: 24px; color: #1A1C24; font-size: 1rem;">Descrição Detalhada:</h3>
         <div style="background-color: #EBF3F7; padding: 16px; border-radius: 8px; border-left: 4px solid #8367C7; white-space: pre-wrap; line-height: 1.5; font-size: 0.95rem;">
           ${descricao}
         </div>
-        
         <hr style="border: none; border-top: 1px solid #EAE6F0; margin-top: 25px;" />
         <p style="font-size: 0.75rem; color: #92919A; text-align: center; margin-bottom: 0;">Mensagem gerada automaticamente pelo sistema Voz Segura.</p>
       </div>
@@ -95,25 +94,14 @@ app.post('/api/relato', async (req, res) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log('📬 Relato enviado com sucesso!');
-    return res.status(200).json({ 
-      success: true, 
-      mensagem: 'Relato enviado com sucesso.' 
-    });
+    return res.status(200).json({ success: true, mensagem: 'Relato enviado com sucesso.' });
   } catch (error) {
-    console.error('❌ Erro no envio do e-mail:', error);
-    return res.status(500).json({ 
-      success: false, 
-      mensagem: 'Erro de autenticação ou envio no servidor de e-mail.',
-      detalhes: error.message 
-    });
+    return res.status(500).json({ success: false, mensagem: 'Erro ao enviar e-mail.', detalhes: error.message });
   }
 });
 
 if (!process.env.VERCEL) {
-  app.listen(PORT, () => {
-    console.log(`🚀 Servidor rodando na porta ${PORT}`);
-  });
+  app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
 }
 
 module.exports = app;
