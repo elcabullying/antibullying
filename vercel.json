@@ -1,18 +1,23 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "routes": [
+  "builds": [
     {
-      "src": "/(.*\\.(png|jpg|jpeg|gif|svg|pdf|css|js))",
-      "dest": "/$1"
+      "src": "server.js",
+      "use": "@vercel/node"
     },
     {
+      "src": "public/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
       "src": "/api/(.*)",
-      "dest": "/api/index.js"
+      "dest": "server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "server.js"
     }
   ]
 }
