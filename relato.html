@@ -8,16 +8,16 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap');
 
         :root {
-            --primary: #8367C7;
-            --primary-hover: #6B4EB3;
-            --bg-color: #EBF3F7;
-            --header-bg: #F0EBF7;
+            --primary: #9787C2;
+            --primary-hover: #8271B3;
+            --bg-color: #FAF8FC;
+            --header-bg: #F5F1F9;
             --card-bg: #FFFFFF;
-            --text-color: #1A1C24;
-            --text-muted: #706F78;
-            --border-color: #E2D9F3;
-            --error-color: #E53935;
-            --success-color: #2E7D32;
+            --text-color: #2B2C34;
+            --text-muted: #7A7985;
+            --border-color: #EFEAF8;
+            --error-color: #E57373;
+            --success-color: #4CAF50;
         }
 
         * {
@@ -28,7 +28,9 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background: linear-gradient(135deg, #FAF8FC, #F4F7F9, #F5FAF9);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -36,9 +38,15 @@
             position: relative;
         }
 
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         /* --- CABEÇALHO RESPONSIVO COM MENU HAMBÚRGUER --- */
         header {
-            background-color: rgba(240, 235, 247, 0.95);
+            background-color: rgba(245, 241, 249, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 5%;
             display: flex;
@@ -95,7 +103,7 @@
 
         .nav-link {
             text-decoration: none;
-            color: #55545E;
+            color: #6C6B75;
             font-size: 0.9rem;
             font-weight: 500;
             padding-bottom: 6px;
@@ -131,31 +139,32 @@
         .container {
             background-color: var(--card-bg);
             border-radius: 20px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.02);
             width: 100%;
             max-width: 720px;
             padding: 40px;
+            border: 1px solid var(--border-color);
         }
 
         .main-title {
             font-size: 2.1rem;
-            color: #1A1C24;
+            color: #23242A;
             margin-bottom: 12px;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
 
         .main-subtitle {
-            color: #55545E;
+            color: #61606A;
             font-size: 0.95rem;
             line-height: 1.5;
             margin-bottom: 24px;
         }
 
-        /* Alerta de Segurança */
+        /* Alerta de Segurança Suave */
         .security-alert {
-            background-color: #E6F7F7;
-            border: 1px solid #BCEBEB;
+            background-color: #F0F9F9;
+            border: 1px solid #D1EFEF;
             border-radius: 10px;
             padding: 14px 16px;
             display: flex;
@@ -163,7 +172,7 @@
             gap: 12px;
             margin-bottom: 28px;
             font-size: 0.9rem;
-            color: #005B5C;
+            color: #2C6E6F;
             line-height: 1.4;
         }
 
@@ -181,7 +190,7 @@
             font-weight: 700;
             margin-bottom: 8px;
             font-size: 0.92rem;
-            color: #1A1C24;
+            color: var(--text-color);
         }
 
         input[type="text"],
@@ -189,10 +198,11 @@
         textarea {
             width: 100%;
             padding: 13px 15px;
-            border: 1px solid #D6D6DF;
+            border: 1px solid #E0DCED;
             border-radius: 12px;
             font-size: 0.92rem;
             background-color: #FFFFFF;
+            color: var(--text-color);
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
@@ -201,12 +211,49 @@
         textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(131, 103, 199, 0.15);
+            box-shadow: 0 0 0 3px rgba(151, 135, 194, 0.15);
         }
 
         textarea {
             resize: vertical;
             min-height: 130px;
+        }
+
+        /* ESTILIZAÇÃO DAS CAIXAS DE SELEÇÃO MÚLTIPLA */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #FAF9FD;
+            padding: 16px;
+            border: 1px solid #EFEAF8;
+            border-radius: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #43424A;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .checkbox-item.highlight-all {
+            margin-top: 6px;
+            padding-top: 10px;
+            border-top: 1px dashed #E0DCED;
+            font-weight: 400;
+            color: var(--primary);
         }
 
         .btn-submit {
@@ -228,35 +275,36 @@
         }
 
         .btn-submit:disabled {
-            background-color: #CCC;
+            background-color: #DCD9E8;
+            color: #92909C;
             cursor: not-allowed;
         }
 
-        /* --- BOTÃO SAIR RÁPIDO (ESC) --- */
-        .btn-quick-exit {
+        /* /* BOTÃO FLUTUANTE ESC (CÓDIGO DE REFERÊNCIA) */
+        .floating-esc-btn {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
+            bottom: 30px;
+            right: 30px;
             background-color: #EF4444;
-            color: white;
-            border: none;
-            padding: 12px 20px;
+            color: #FFFFFF;
+            border: 2px solid #DC2626;
+            padding: 15px 24px;
+            border-radius: 50px;
+            font-weight: 700;
             font-size: 0.9rem;
-            font-weight: 800;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);
+            letter-spacing: 0.5px;
             cursor: pointer;
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+            z-index: 999;
+            transition: transform 0.2s, background-color 0.2s;
             display: flex;
             align-items: center;
             gap: 8px;
-            z-index: 1000;
-            transition: background-color 0.2s, transform 0.2s;
-            text-decoration: none;
         }
 
-        .btn-quick-exit:hover {
+        .floating-esc-btn:hover {
+            transform: scale(1.03);
             background-color: #DC2626;
-            transform: scale(1.05);
         }
 
         /* Feedback Messages */
@@ -272,42 +320,40 @@
 
         .success {
             display: block !important;
-            background-color: #E8F5E9;
-            color: var(--success-color);
-            border: 1px solid #A5D6A7;
+            background-color: #F0FDF4;
+            color: #2E7D32;
+            border: 1px solid #DCFCE7;
         }
 
         .error {
             display: block !important;
-            background-color: #FFEBEE;
-            color: var(--error-color);
-            border: 1px solid #FFCDD2;
+            background-color: #FEF2F2;
+            color: #C62828;
+            border: 1px solid #FEE2E2;
         }
 
         /* REGRAS DE RESPONSIVIDADE (NOTEBOOK / TABLET / CELULAR) */
-
-        /* Tablets e Celulares Maiores */
         @media (max-width: 820px) {
             .hamburger-btn {
-                display: block; /* Exibe o ícone das 3 barrinhas no mobile */
+                display: block;
             }
 
             nav {
-                display: none; /* Esconde o menu por padrão no celular */
+                display: none;
                 flex-direction: column;
                 position: absolute;
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background-color: #F4F0FA;
+                background-color: #F5F1F9;
                 padding: 20px;
                 border-bottom: 2px solid var(--border-color);
-                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                box-shadow: 0 10px 15px rgba(0,0,0,0.03);
                 gap: 16px;
             }
 
             nav.active {
-                display: flex; /* Abre o menu quando clicado */
+                display: flex;
             }
 
             .nav-link.active::after {
@@ -327,7 +373,6 @@
             }
         }
 
-        /* Dispositivos Móveis (Celulares) */
         @media (max-width: 600px) {
             header {
                 padding: 12px 5%;
@@ -363,11 +408,11 @@
                 font-size: 0.9rem;
             }
 
-            .btn-quick-exit {
+            .floating-esc-btn {
                 bottom: 15px;
                 right: 15px;
-                padding: 10px 16px;
-                font-size: 0.75rem;
+                padding: 10px 18px;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -432,16 +477,35 @@
                     </select>
                 </div>
 
+                <!-- CAMPO DE TIPO DE BULLYING COM MÚLTIPLA SELEÇÃO -->
                 <div class="form-group">
-                    <label for="tipo_bullying">Tipo de Ocorrência:*</label>
-                    <select id="tipo_bullying" name="tipo_bullying" required>
-                        <option value="">Selecione uma opção...</option>
-                        <option value="Verbal">Verbal (insultos, piadas, xingamentos)</option>
-                        <option value="Físico">Físico (agressões, empurrões, danos a objetos)</option>
-                        <option value="Psicológico / Social">Psicológico / Social (exclusão, fofocas, ameaças)</option>
-                        <option value="Cyberbullying">Cyberbullying (mensagens na internet/redes sociais)</option>
-                        <option value="Outro">Outro</option>
-                    </select>
+                    <label>Tipo de Ocorrência (Marque uma ou mais opções):*</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="tipo-option" name="tipo_bullying" value="Verbal (insultos, piadas, xingamentos)">
+                            Verbal (insultos, piadas, xingamentos)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="tipo-option" name="tipo_bullying" value="Físico (agressões, empurrões, danos a objetos)">
+                            Físico (agressões, empurrões, danos a objetos)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="tipo-option" name="tipo_bullying" value="Psicológico / Social (exclusão, fofocas, ameaças)">
+                            Psicológico / Social (exclusão, fofocas, ameaças)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="tipo-option" name="tipo_bullying" value="Cyberbullying (mensagens na internet/redes sociais)">
+                            Cyberbullying (mensagens na internet/redes sociais)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="tipo-option" name="tipo_bullying" value="Outro">
+                            Outro
+                        </label>
+                        <label class="checkbox-item highlight-all">
+                            <input type="checkbox" id="checkTodas">
+                            Todas as opções acima
+                        </label>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -472,12 +536,23 @@
         </div>
     </main>
 
-    <!-- BOTÃO SAIR RÁPIDO (ESC) -->
-    <a href="https://www.google.com" class="btn-quick-exit" id="quickExit">
+    <!-- BOTÃO FLUTUANTE ESC -->
+    <button class="floating-esc-btn" onclick="exitUrgent()">
         ⚠️ SAIR RÁPIDO (ESC)
-    </a>
+    </button>
 
+    <!-- SCRIPT DO BOTÃO DE EMERGÊNCIA -->
     <script>
+        function exitUrgent() {
+            window.location.href = 'https://www.google.com';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                exitUrgent();
+            }
+        });
+
         function toggleMenu() {
             const nav = document.getElementById('nav-menu');
             nav.classList.toggle('active');
@@ -486,9 +561,38 @@
         const form = document.getElementById('formRelato');
         const btnEnviar = document.getElementById('btnEnviar');
         const feedback = document.getElementById('feedback');
+        
+        // LÓGICA DAS SELEÇÕES MÚLTIPLAS & "TODAS AS OPÇÕES ACIMA"
+        const tipoOptions = document.querySelectorAll('.tipo-option');
+        const checkTodas = document.getElementById('checkTodas');
 
+        checkTodas.addEventListener('change', function() {
+            tipoOptions.forEach(cb => {
+                cb.checked = this.checked;
+            });
+        });
+
+        tipoOptions.forEach(cb => {
+            cb.addEventListener('change', function() {
+                const totalOptions = tipoOptions.length;
+                const checkedOptions = document.querySelectorAll('.tipo-option:checked').length;
+                checkTodas.checked = (totalOptions === checkedOptions);
+            });
+        });
+
+        // ENVIO DO FORMULÁRIO
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            const selectedTipos = Array.from(tipoOptions)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+
+            if (selectedTipos.length === 0) {
+                feedback.className = 'error';
+                feedback.textContent = '❌ Por favor, selecione pelo menos um tipo de ocorrência/bullying.';
+                return;
+            }
 
             btnEnviar.disabled = true;
             btnEnviar.textContent = 'Enviando relato...';
@@ -497,6 +601,8 @@
 
             const formData = new FormData(form);
             const dados = Object.fromEntries(formData.entries());
+            
+            dados.tipo_bullying = selectedTipos.join(', ');
 
             try {
                 const response = await fetch('/api/relato', {
@@ -511,6 +617,7 @@
                     feedback.className = 'success';
                     feedback.textContent = '✅ Relato enviado com sucesso! Obrigado pela sua contribuição.';
                     form.reset();
+                    checkTodas.checked = false;
                 } else {
                     feedback.className = 'error';
                     feedback.textContent = `❌ ${resultado.mensagem || 'Erro ao enviar.'}`;
@@ -524,12 +631,6 @@
             } finally {
                 btnEnviar.disabled = false;
                 btnEnviar.textContent = 'Enviar Relato com Segurança';
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                window.location.href = 'https://www.google.com';
             }
         });
     </script>
