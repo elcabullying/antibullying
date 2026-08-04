@@ -11,18 +11,32 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Servir arquivos estáticos (CSS, JS, imagens)
+// Servir arquivos estáticos padrão (CSS, JS, mídias)
 app.use(express.static(__dirname));
 
-// Rota para a página inicial
+// Rota principal (raiz do site)
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Rota dinâmica para abrir QUALQUER arquivo .html (denuncia.html, meditacao.html, etc.)
+// Rota dinâmica para entregar QUALQUER imagem .png
+app.get('/:imagem.png', (req, res) => {
+  const imagem = req.params.imagem;
+  res.sendFile(path.join(__dirname, `${imagem}.png`), (err) => {
+    if (err) {
+      res.status(404).send('Imagem não encontrada');
+    }
+  });
+});
+
+// Rota dinâmica para abrir qualquer página .html (suporta nomes com acento)
 app.get('/:pagina.html', (req, res) => {
-  const pagina = req.params.pagina;
-  res.sendFile(path.join(__dirname, `${pagina}.html`));
+  const pagina = decodeURIComponent(req.params.pagina);
+  res.sendFile(path.join(__dirname, `${pagina}.html`), (err) => {
+    if (err) {
+      res.status(404).send('Página não encontrada');
+    }
+  });
 });
 
 // Rota POST para receber o relato do formulário
