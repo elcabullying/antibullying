@@ -32,11 +32,11 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* CABEÇALHO REPLICADO DA HOME */
+        /* CABEÇALHO REPLICADO DA HOME COM RESPONSIVIDADE */
         header {
-            background-color: rgba(240, 235, 247, 0.9); 
+            background-color: rgba(240, 235, 247, 0.95); 
             backdrop-filter: blur(10px);
-            padding: 20px 5%;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -71,10 +71,21 @@
             font-weight: 500;
         }
 
+        /* BOTÃO HAMBÚRGUER (CELULAR) */
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: #1A1C24;
+            cursor: pointer;
+            padding: 5px;
+        }
+
         nav {
             display: flex;
-            gap: 18px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 24px;
         }
 
         .nav-link {
@@ -87,11 +98,7 @@
             transition: color 0.2s;
         }
 
-        .nav-link:hover {
-            color: #1A1C24;
-        }
-
-        .nav-link.active {
+        .nav-link:hover, .nav-link.active {
             color: #1A1C24;
             font-weight: 600;
         }
@@ -119,6 +126,7 @@
             align-items: center;
             justify-content: center;
             gap: 50px;
+            width: 100%;
         }
 
         .intro-text h1 {
@@ -164,7 +172,7 @@
             font-size: 1.3rem;
             font-weight: 600;
             color: #6A50A7;
-            height: 35px;
+            min-height: 35px;
             text-shadow: 0 2px 4px rgba(131, 103, 199, 0.1);
         }
 
@@ -206,13 +214,11 @@
         }
 
         .glass-card h3 {
-            font-size: 1.2rem;
-            color: #1A1C24;
+            font-size: 0.95rem;
+            color: #6A50A7;
             font-weight: 700;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            font-size: 0.95rem;
-            color: #6A50A7;
         }
 
         #display-phrase {
@@ -328,25 +334,107 @@
             transform: scale(1.05);
         }
 
-        /* RESPONSIVIDADE */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 15px;
+        /* REGRAS DE RESPONSIVIDADE (NOTEBOOK / TABLET / CELULAR) */
+
+        /* Notebooks e Desktops menores */
+        @media (max-width: 1024px) {
+            .meditation-container {
+                padding: 20px 15px;
+                gap: 40px;
             }
+            .glass-card {
+                padding: 30px;
+            }
+        }
+
+        /* Tablets e Celulares Maiores */
+        @media (max-width: 820px) {
+            .hamburger-btn {
+                display: block; /* Revela o menu de três barrinhas */
+            }
+
             nav {
-                justify-content: center;
+                display: none; /* Esconde o menu por padrão no mobile */
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #F4F0FA;
+                padding: 20px;
+                border-bottom: 2px solid #E2D9F3;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                gap: 16px;
             }
+
+            nav.active {
+                display: flex; /* Exibe o menu ao clicar no botão */
+            }
+
+            .nav-link.active::after {
+                display: none;
+            }
+
+            .intro-text h1 {
+                font-size: 2rem;
+            }
+
+            .intro-text p {
+                font-size: 1rem;
+            }
+
             .balloon-container {
-                width: 200px;
-                height: 200px;
+                width: 220px;
+                height: 220px;
             }
+
             .balloon {
                 width: 110px;
                 height: 110px;
             }
-            .intro-text h1 {
-                font-size: 2rem;
+
+            .breathing-text {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Dispositivos Móveis (Celulares) */
+        @media (max-width: 600px) {
+            .meditation-container {
+                margin: 20px auto;
+                gap: 30px;
+            }
+
+            .glass-card {
+                padding: 20px 15px;
+                border-radius: 18px;
+            }
+
+            #display-phrase {
+                font-size: 1.05rem;
+                min-height: 60px;
+            }
+
+            .btn-draw {
+                padding: 12px 28px;
+                font-size: 0.9rem;
+            }
+
+            .audio-buttons-grid {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-sound {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .floating-esc-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 16px;
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -367,8 +455,13 @@
                 <span>Juntos contra o bullying</span>
             </div>
         </div>
-        
-        <nav>
+
+        <!-- BOTÃO TRES BARRINHAS -->
+        <button class="hamburger-btn" onclick="toggleMenu()" aria-label="Abrir Menu">
+            ☰
+        </button>
+
+        <nav id="nav-menu">
             <a href="index.html" class="nav-link">Início</a>
             <a href="meditacao.html" class="nav-link active">Meditação</a>
             <a href="autoavaliacao.html" class="nav-link">Autoavaliação (PHQ-9)</a>
@@ -405,7 +498,7 @@
         <div class="glass-card">
             <h3>Sons de Fundo</h3>
             <div class="audio-buttons-grid">
-                <button class="btn-sound" onclick="toggleSound('chuva', this)">      🌧️ Chuva Suave</button>
+                <button class="btn-sound" onclick="toggleSound('chuva', this)">🌧️ Chuva Suave</button>
                 <button class="btn-sound" onclick="toggleSound('mar', this)">🌊 Ondas do Mar</button>
                 <button class="btn-sound" onclick="toggleSound('floresta', this)">🍃 Som da Floresta</button>
             </div>
@@ -424,6 +517,11 @@
     </footer>
 
     <script>
+        function toggleMenu() {
+            const nav = document.getElementById('nav-menu');
+            nav.classList.toggle('active');
+        }
+
         const phrases = [
             "Você é muito maior do que qualquer palavra que tente te diminuir.",
             "Tudo bem não estar forte o tempo todo. Respeite o seu momento.",
