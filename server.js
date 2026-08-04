@@ -11,8 +11,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Servir arquivos estáticos (HTML, CSS, JS)
-app.use(express.static(path.join(__dirname)));
+// Servir arquivos estáticos (HTML, CSS, JS e Imagens)
+app.use(express.static(__dirname));
 
 // Rota POST para receber o relato
 app.post('/api/relato', async (req, res) => {
