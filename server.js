@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Servir arquivos estáticos padrão (CSS, JS, mídias)
+// Servir arquivos estáticos padrão
 app.use(express.static(__dirname));
 
 // Rota principal (raiz do site)
@@ -25,6 +25,16 @@ app.get('/:imagem.png', (req, res) => {
   res.sendFile(path.join(__dirname, `${imagem}.png`), (err) => {
     if (err) {
       res.status(404).send('Imagem não encontrada');
+    }
+  });
+});
+
+// Rota dinâmica para entregar QUALQUER arquivo .pdf
+app.get('/:documento.pdf', (req, res) => {
+  const documento = req.params.documento;
+  res.sendFile(path.join(__dirname, `${documento}.pdf`), (err) => {
+    if (err) {
+      res.status(404).send('Documento PDF não encontrado');
     }
   });
 });
