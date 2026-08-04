@@ -11,12 +11,18 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Servir arquivos estáticos (CSS, JS, imagens locais se houver)
+// Servir arquivos estáticos (CSS, JS, imagens)
 app.use(express.static(__dirname));
 
-// Rota principal para carregar o index.html na raiz do site
+// Rota para a página inicial
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Rota dinâmica para abrir QUALQUER arquivo .html (denuncia.html, meditacao.html, etc.)
+app.get('/:pagina.html', (req, res) => {
+  const pagina = req.params.pagina;
+  res.sendFile(path.join(__dirname, `${pagina}.html`));
 });
 
 // Rota POST para receber o relato do formulário
