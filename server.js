@@ -15,29 +15,6 @@ app.use(express.json());
 // Servir arquivos estáticos (HTML, CSS, imagens) da mesma pasta
 app.use(express.static(path.join(__dirname)));
 
-// Configuração do Transporter (Nodemailer)
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  tls: {
-    rejectUnauthorized: false // Ignora avisos de certificado SSL local
-  }
-});
-
-// Teste de conexão do e-mail ao iniciar (Apenas em ambiente local)
-if (!process.env.VERCEL) {
-  transporter.verify((error, success) => {
-    if (error) {
-      console.error('❌ Erro na configuração do e-mail:', error);
-    } else {
-      console.log('✅ Servidor de e-mail pronto para enviar mensagens!');
-    }
-  });
-}
-
 // Rota POST para receber o relato do formulário HTML
 app.post('/api/relato', async (req, res) => {
   const { 
@@ -57,6 +34,15 @@ app.post('/api/relato', async (req, res) => {
       mensagem: 'Por favor, preencha todos os campos obrigatórios.' 
     });
   }
+
+  // Criação do Transporter dentro da requisição (Recomendado para Vercel Serverless)
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+  });
 
   // Template do E-mail formatado
   const mailOptions = {
