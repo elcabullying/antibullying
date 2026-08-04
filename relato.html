@@ -33,19 +33,21 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
-        /* --- CABEÇALHO PADRÃO DO PROJETO --- */
+        /* --- CABEÇALHO RESPONSIVO COM MENU HAMBÚRGUER --- */
         header {
-            background-color: #F0EBF7; /* Cor de fundo do cabeçalho (lilás muito claro) */
-            padding: 14px 5%;          /* Espaçamento interno (14px topo/baixo, 5% laterais) */
-            display: flex;              /* Alinha logo e menu lado a lado */
-            justify-content: space-between; /* Mantém a logo na esquerda e o menu na direita */
-            align-items: center;       /* Centraliza verticalmente os elementos */
-            border-bottom: 2px solid #E2D9F3; /* Linha de borda inferior em lilás suave */
-            position: sticky;          /* Faz o cabeçalho ficar fixo no topo ao rolar a página */
-            top: 0;                    /* Fixa na posição zero superior */
-            z-index: 100;              /* Mantém o cabeçalho acima de outros elementos */
+            background-color: rgba(240, 235, 247, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo-area {
@@ -56,28 +58,39 @@
         }
 
         .logo-img {
-            height: 36px;
+            height: 40px;
             width: auto;
             object-fit: contain;
         }
 
         .logo-texto h2 {
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--text-color);
             line-height: 1.1;
         }
 
         .logo-texto span {
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             font-weight: 500;
         }
 
+        /* BOTÃO HAMBÚRGUER (CELULAR) */
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 5px;
+        }
+
         nav {
             display: flex;
-            gap: 18px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 24px;
         }
 
         .nav-link {
@@ -85,7 +98,7 @@
             color: #55545E;
             font-size: 0.9rem;
             font-weight: 500;
-            padding-bottom: 4px;
+            padding-bottom: 6px;
             position: relative;
             transition: color 0.2s;
         }
@@ -237,12 +250,13 @@
             align-items: center;
             gap: 8px;
             z-index: 1000;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s, transform 0.2s;
             text-decoration: none;
         }
 
         .btn-quick-exit:hover {
             background-color: #DC2626;
+            transform: scale(1.05);
         }
 
         /* Feedback Messages */
@@ -270,27 +284,90 @@
             border: 1px solid #FFCDD2;
         }
 
-        /* RESPONSIVIDADE DO CABEÇALHO */
-        @media (max-width: 1100px) {
-            header {
-                flex-direction: column;
-                gap: 12px;
-                text-align: center;
+        /* REGRAS DE RESPONSIVIDADE (NOTEBOOK / TABLET / CELULAR) */
+
+        /* Tablets e Celulares Maiores */
+        @media (max-width: 820px) {
+            .hamburger-btn {
+                display: block; /* Exibe o ícone das 3 barrinhas no mobile */
             }
+
             nav {
-                justify-content: center;
+                display: none; /* Esconde o menu por padrão no celular */
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #F4F0FA;
+                padding: 20px;
+                border-bottom: 2px solid var(--border-color);
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                gap: 16px;
+            }
+
+            nav.active {
+                display: flex; /* Abre o menu quando clicado */
+            }
+
+            .nav-link.active::after {
+                display: none;
+            }
+
+            main {
+                padding: 20px 15px 80px 15px;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            .main-title {
+                font-size: 1.6rem;
             }
         }
 
+        /* Dispositivos Móveis (Celulares) */
         @media (max-width: 600px) {
             header {
-                padding: 12px 10px;
+                padding: 12px 5%;
             }
-            nav {
-                gap: 10px;
+
+            .container {
+                padding: 20px 15px;
+                border-radius: 16px;
             }
-            .nav-link {
+
+            .main-title {
+                font-size: 1.4rem;
+            }
+
+            .main-subtitle {
+                font-size: 0.88rem;
+            }
+
+            .security-alert {
                 font-size: 0.82rem;
+                padding: 12px;
+            }
+
+            input[type="text"],
+            select,
+            textarea {
+                padding: 11px 13px;
+                font-size: 0.88rem;
+            }
+
+            .btn-submit {
+                padding: 13px;
+                font-size: 0.9rem;
+            }
+
+            .btn-quick-exit {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 16px;
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -306,8 +383,13 @@
                 <span>Juntos contra o bullying</span>
             </div>
         </a>
+
+        <!-- BOTÃO TRES BARRINHAS -->
+        <button class="hamburger-btn" onclick="toggleMenu()" aria-label="Abrir Menu">
+            ☰
+        </button>
         
-        <nav>
+        <nav id="nav-menu">
             <a href="index.html" class="nav-link">Início</a>
             <a href="meditacao.html" class="nav-link">Meditação</a>
             <a href="autoavaliacao.html" class="nav-link">Autoavaliação (PHQ-9)</a>
@@ -396,6 +478,11 @@
     </a>
 
     <script>
+        function toggleMenu() {
+            const nav = document.getElementById('nav-menu');
+            nav.classList.toggle('active');
+        }
+
         const form = document.getElementById('formRelato');
         const btnEnviar = document.getElementById('btnEnviar');
         const feedback = document.getElementById('feedback');
