@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voz Segura - Canal de Denúncias</title>
+    <title>Voz Segura - Relatar caso</title>
     <style>
         :root {
             --primary: #8367C7;
             --primary-hover: #6B4EB3;
-            --bg-color: #F4F0FA;
+            --bg-color: #EBF3F7;
             --card-bg: #FFFFFF;
             --text-color: #1A1C24;
-            --text-muted: #706F78;
+            --text-muted: #555555;
             --border-color: #E2D9F3;
             --error-color: #E53935;
             --success-color: #2E7D32;
@@ -21,70 +21,172 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- BARRA DE NAVEGAÇÃO SUPERIOR --- */
+        header {
+            background-color: #F4F0FA;
+            border-bottom: 1px solid #EAE6F0;
+            padding: 12px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-container img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+
+        .logo-text h1 {
+            font-size: 1.2rem;
+            color: #1A1C24;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: #706F78;
+        }
+
+        nav {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #4A4A52;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding-bottom: 4px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a.active {
+            color: var(--primary);
+            font-weight: bold;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        /* --- CONTEÚDO PRINCIPAL --- */
+        main {
+            flex: 1;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            align-items: flex-start;
+            padding: 40px 20px 80px 20px;
         }
 
         .container {
             background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);
             width: 100%;
-            max-width: 600px;
-            padding: 32px;
-            border: 1px solid var(--border-color);
+            max-width: 720px;
+            padding: 40px;
         }
 
-        .header {
-            text-align: center;
+        .main-title {
+            font-size: 2rem;
+            color: #1A1C24;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .main-subtitle {
+            color: #555555;
+            font-size: 1rem;
+            line-height: 1.5;
             margin-bottom: 24px;
         }
 
-        .header h1 {
-            color: var(--primary);
-            font-size: 1.8rem;
-            margin-bottom: 8px;
+        /* Alert de Segurança */
+        .security-alert {
+            background-color: #E6F7F7;
+            border: 1px solid #BCEBEB;
+            border-radius: 8px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            font-size: 0.9rem;
+            color: #005B5C;
         }
 
-        .header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
+        .security-alert span {
+            font-size: 1.2rem;
         }
 
+        /* Form Controls */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         label {
             display: block;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 8px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            color: #1A1C24;
+        }
+
+        label span.optional {
+            font-weight: normal;
+            color: #706F78;
         }
 
         input[type="text"],
         select,
         textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            background-color: #FAFAFA;
+            padding: 14px;
+            border: 1px solid #D6D6DF;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            background-color: #FFFFFF;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(131, 103, 199, 0.15);
         }
 
         textarea {
             resize: vertical;
-            min-height: 120px;
+            min-height: 140px;
         }
 
         .btn-submit {
@@ -92,15 +194,21 @@
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 14px;
+            padding: 16px;
             font-size: 1rem;
             font-weight: bold;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 10px;
         }
 
         .btn-submit:hover {
             background-color: var(--primary-hover);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.99);
         }
 
         .btn-submit:disabled {
@@ -108,9 +216,37 @@
             cursor: not-allowed;
         }
 
+        /* --- BOTÃO SAIR RÁPIDO (ESC) --- */
+        .btn-quick-exit {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #E53935;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(229, 57, 53, 0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+            transition: background-color 0.2s, transform 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-quick-exit:hover {
+            background-color: #C62828;
+            transform: translateY(-2px);
+        }
+
+        /* --- FEEDBACK MESSAGES --- */
         #feedback {
-            margin-top: 16px;
-            padding: 12px;
+            margin-top: 20px;
+            padding: 14px;
             border-radius: 8px;
             font-size: 0.95rem;
             text-align: center;
@@ -131,83 +267,110 @@
             color: var(--error-color);
             border: 1px solid #FFCDD2;
         }
-
-        .anonymous-note {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <h1>🛡️ Voz Segura</h1>
-            <p>Canal seguro e confidencial para envio de relatos de bullying.</p>
+    <!-- BARRA DE NAVEGAÇÃO -->
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="logo.png" alt="Logo Voz Segura">
+            <div class="logo-text">
+                <h1>Voz Segura</h1>
+                <p>Juntos contra o bullying</p>
+            </div>
+        </a>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="meditacao.html">Meditação</a>
+            <a href="autoavaliacao.html">Autoavaliação (PHQ-9)</a>
+            <a href="relato.html" class="active">Relatar caso</a>
+            <a href="noticias.html">Notícias e Ciência</a>
+            <a href="denuncia.html">Canais de denúncia</a>
+        </nav>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+        <div class="container">
+            <h1 class="main-title">Relatar Situação ou Bullying</h1>
+            <p class="main-subtitle">Preencha os campos abaixo com o máximo de detalhes possível. Suas informações serão enviadas diretamente à equipe responsável da escola.</p>
+
+            <div class="security-alert">
+                <span>🔒</span>
+                <div>
+                    <strong>Sua segurança é prioridade:</strong> O envio do seu relato é tratado com total confidencialidade pela equipe responsável.
+                </div>
+            </div>
+
+            <form id="formRelato">
+                <!-- CAMPO NOME: AGORA OBRIGATÓRIO -->
+                <div class="form-group">
+                    <label for="nome">Seu Nome:*</label>
+                    <input type="text" id="nome" name="nome" placeholder="Ex: Maria Silva" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="turma">Sua Turma/Série: <span class="optional">(Opcional)</span></label>
+                    <input type="text" id="turma" name="turma" placeholder="Ex: 9º Ano A, 2º Ano Médio...">
+                </div>
+
+                <div class="form-group">
+                    <label for="vitima_testemunha">Você é a pessoa atingida ou testemunhou o ocorrido?*</label>
+                    <select id="vitima_testemunha" name="vitima_testemunha" required>
+                        <option value="">Selecione uma opção...</option>
+                        <option value="Vítima">Vítima (aconteceu comigo)</option>
+                        <option value="Testemunha">Testemunha (presenciei com outra pessoa)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo_bullying">Tipo de Ocorrência:*</label>
+                    <select id="tipo_bullying" name="tipo_bullying" required>
+                        <option value="">Selecione uma opção...</option>
+                        <option value="Verbal">Verbal (insultos, piadas, xingamentos)</option>
+                        <option value="Físico">Físico (agressões, empurrões, danos a objetos)</option>
+                        <option value="Psicológico / Social">Psicológico / Social (exclusão, fofocas, ameaças)</option>
+                        <option value="Cyberbullying">Cyberbullying (mensagens na internet/redes sociais)</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="local">Onde costuma acontecer?*</label>
+                    <input type="text" id="local" name="local" placeholder="Ex: Pátio da escola, Sala de aula, WhatsApp" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="frequencia">Com que frequência ocorre?*</label>
+                    <select id="frequencia" name="frequencia" required>
+                        <option value="">Selecione...</option>
+                        <option value="Ocorreu apenas uma vez">Ocorreu apenas uma vez</option>
+                        <option value="Algumas vezes no mês">Algumas vezes no mês</option>
+                        <option value="Semanalmente">Semanalmente</option>
+                        <option value="Diariamente">Diariamente</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descreva o que aconteceu:*</label>
+                    <textarea id="descricao" name="descricao" placeholder="Conte detalhes sobre o ocorrido com calma..." required></textarea>
+                </div>
+
+                <button type="submit" id="btnEnviar" class="btn-submit">Enviar Relato com Segurança</button>
+            </form>
+
+            <div id="feedback"></div>
         </div>
+    </main>
 
-        <form id="formRelato">
-            <div class="form-group">
-                <label for="nome">Seu Nome (Opcional):</label>
-                <input type="text" id="nome" name="nome" placeholder="Deixe em branco para enviar anonimamente">
-                <p class="anonymous-note">Caso prefira não se identificar, deixe este campo em branco.</p>
-            </div>
-
-            <div class="form-group">
-                <label for="turma">Série / Turma (Opcional):</label>
-                <input type="text" id="turma" name="turma" placeholder="Ex: 9º Ano A, 2º Ano Ensino Médio">
-            </div>
-
-            <div class="form-group">
-                <label for="vitima_testemunha">Você é:*</label>
-                <select id="vitima_testemunha" name="vitima_testemunha" required>
-                    <option value="">Selecione uma opção...</option>
-                    <option value="Vítima">Vítima (aconteceu comigo)</option>
-                    <option value="Testemunha">Testemunha (presenciei com outra pessoa)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="tipo_bullying">Tipo de Ocorrência:*</label>
-                <select id="tipo_bullying" name="tipo_bullying" required>
-                    <option value="">Selecione uma opção...</option>
-                    <option value="Verbal">Verbal (insultos, piadas, xingamentos)</option>
-                    <option value="Físico">Físico (agressões, empurrões, danos a objetos)</option>
-                    <option value="Psicológico / Social">Psicológico / Social (exclusão, fofocas, ameaças)</option>
-                    <option value="Cyberbullying">Cyberbullying (mensagens na internet/redes sociais)</option>
-                    <option value="Outro">Outro</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="local">Onde costuma acontecer?*</label>
-                <input type="text" id="local" name="local" placeholder="Ex: Pátio da escola, Sala de aula, WhatsApp" required>
-            </div>
-
-            <div class="form-group">
-                <label for="frequencia">Com que frequência ocorre?*</label>
-                <select id="frequencia" name="frequencia" required>
-                    <option value="">Selecione...</option>
-                    <option value="Ocorreu apenas uma vez">Ocorreu apenas uma vez</option>
-                    <option value="Algumas vezes no mês">Algumas vezes no mês</option>
-                    <option value="Semanalmente">Semanalmente</option>
-                    <option value="Diariamente">Diariamente</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="descricao">Descreva o que aconteceu:*</label>
-                <textarea id="descricao" name="descricao" placeholder="Conte detalhes sobre o ocorrido com calma..." required></textarea>
-            </div>
-
-            <button type="submit" id="btnEnviar" class="btn-submit">Enviar Relato com Segurança</button>
-        </form>
-
-        <div id="feedback"></div>
-    </div>
+    <!-- BOTÃO SAIR RÁPIDO (ESC) -->
+    <a href="https://www.google.com" class="btn-quick-exit" id="quickExit">
+        ⚠️ SAIR RÁPIDO (ESC)
+    </a>
 
     <script>
+        // Lógica do Formulário
         const form = document.getElementById('formRelato');
         const btnEnviar = document.getElementById('btnEnviar');
         const feedback = document.getElementById('feedback');
@@ -249,6 +412,13 @@
             } finally {
                 btnEnviar.disabled = false;
                 btnEnviar.textContent = 'Enviar Relato com Segurança';
+            }
+        });
+
+        // Atalho para Sair Rápido (Tecla ESC)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                window.location.href = 'https://www.google.com';
             }
         });
     </script>
