@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voz Segura - Relatar caso</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap');
 
         :root {
             --primary: #8367C7;
@@ -37,15 +37,15 @@
 
         /* --- CABEÇALHO PADRÃO DO PROJETO --- */
         header {
-            background-color: var(--header-bg); 
-            padding: 14px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--border-color); 
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background-color: #F0EBF7; /* Cor de fundo do cabeçalho (lilás muito claro) */
+            padding: 14px 5%;          /* Espaçamento interno (14px topo/baixo, 5% laterais) */
+            display: flex;              /* Alinha logo e menu lado a lado */
+            justify-content: space-between; /* Mantém a logo na esquerda e o menu na direita */
+            align-items: center;       /* Centraliza verticalmente os elementos */
+            border-bottom: 2px solid #E2D9F3; /* Linha de borda inferior em lilás suave */
+            position: sticky;          /* Faz o cabeçalho ficar fixo no topo ao rolar a página */
+            top: 0;                    /* Fixa na posição zero superior */
+            z-index: 100;              /* Mantém o cabeçalho acima de outros elementos */
         }
 
         .logo-area {
@@ -169,11 +169,6 @@
             margin-bottom: 8px;
             font-size: 0.92rem;
             color: #1A1C24;
-        }
-
-        label span.optional {
-            font-weight: 400;
-            color: var(--text-muted);
         }
 
         input[type="text"],
@@ -342,8 +337,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="turma">Sua Turma/Série: <span class="optional">(Opcional)</span></label>
-                    <input type="text" id="turma" name="turma" placeholder="Ex: 9º Ano A, 2º Ano Médio...">
+                    <label for="turma">Sua Turma/Série:*</label>
+                    <input type="text" id="turma" name="turma" placeholder="Ex: 9º Ano A, 2º Ano Médio..." required>
                 </div>
 
                 <div class="form-group">
