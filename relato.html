@@ -395,8 +395,8 @@
             btn.innerText = '⏳ Enviando relato...';
 
             const formData = {
-                nome: document.getElementById('nome').value,
-                turma: document.getElementById('turma').value,
+                nome: document.getElementById('nome').value || 'Anônimo',
+                turma: document.getElementById('turma').value || 'Não informada',
                 vitima_testemunha: document.querySelector('input[name="vitima_testemunha"]:checked')?.value || '',
                 tipo_bullying: document.getElementById('tipo_bullying').value,
                 local: document.getElementById('local').value,
@@ -405,24 +405,24 @@
             };
 
             try {
-                // Requisição com a URL completa apontando para o servidor local
-                const response = await fetch('http://localhost:3000/api/relato', {
+                // Requisição conectada à API na Vercel
+                const response = await fetch('https://antibullying-silk.vercel.app/api/relato', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json' 
+                    },
                     body: JSON.stringify(formData)
                 });
 
-                const result = await response.json();
-
-                if (result.success) {
+                if (response.ok) {
                     alert('✅ Relato enviado com sucesso e mantido em sigilo!');
                     document.getElementById('formRelato').reset();
                 } else {
-                    alert('❌ Erro ao enviar relato. Verifique as configurações de e-mail do servidor.');
+                    alert('❌ Ocorreu um erro ao processar o seu relato. Tente novamente mais tarde.');
                 }
             } catch (error) {
-                console.error(error);
-                alert('❌ Não foi possível conectar ao servidor. Verifique se o Node está rodando no VS Code (node server.js).');
+                console.error('Erro no envio:', error);
+                alert('❌ Erro de conexão ao enviar o relato. Verifique sua rede e tente novamente.');
             } finally {
                 btn.disabled = false;
                 btn.innerText = '🛡️ Enviar Relato com Segurança';
