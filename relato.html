@@ -7,17 +7,21 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap');
 
+        /* NOVAS VARIÁVEIS DE CORES ALINHADAS AO ARQUIVO DE REFERÊNCIA */
         :root {
-            --primary: #9787C2;
-            --primary-hover: #8271B3;
-            --bg-color: #FAF8FC;
-            --header-bg: #F5F1F9;
+            --primary: #0052B4;
+            --primary-hover: #003C85;
+            --accent-border: #1EA7FD;
+            --accent-yellow: #FFB703;
+            --bg-color: #F0F6FF;
+            --header-bg: rgba(255, 255, 255, 0.95);
             --card-bg: #FFFFFF;
-            --text-color: #2B2C34;
-            --text-muted: #7A7985;
-            --border-color: #EFEAF8;
-            --error-color: #E57373;
-            --success-color: #4CAF50;
+            --text-color: #0F172A;
+            --text-muted: #475569;
+            --border-color: #BAE6FD;
+            --error-color: #E60039;
+            --error-hover: #B3002D;
+            --success-color: #2E7D32;
         }
 
         * {
@@ -28,9 +32,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #FAF8FC, #F4F7F9, #F5FAF9);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background-color: var(--bg-color);
             color: var(--text-color);
             min-height: 100vh;
             display: flex;
@@ -38,21 +40,15 @@
             position: relative;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         /* --- CABEÇALHO RESPONSIVO COM MENU HAMBÚRGUER --- */
         header {
-            background-color: rgba(245, 241, 249, 0.95);
+            background-color: var(--header-bg);
             backdrop-filter: blur(10px);
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--border-color);
+            border-bottom: 3px solid var(--accent-border);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -67,21 +63,25 @@
 
         .logo-img {
             height: 40px;
-            width: auto;
+            width: 40px;
             object-fit: contain;
+            border-radius: 50%;
         }
 
         .logo-texto h2 {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: var(--text-color);
+            color: var(--primary);
             line-height: 1.1;
+            margin: 0;
         }
 
         .logo-texto span {
-            font-size: 0.8rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
             font-weight: 500;
+            display: block;
+            margin-top: 2px;
         }
 
         /* BOTÃO HAMBÚRGUER (CELULAR) */
@@ -103,7 +103,7 @@
 
         .nav-link {
             text-decoration: none;
-            color: #6C6B75;
+            color: var(--text-muted);
             font-size: 0.9rem;
             font-weight: 500;
             padding-bottom: 6px;
@@ -112,18 +112,18 @@
         }
 
         .nav-link:hover, .nav-link.active {
-            color: var(--text-color);
-            font-weight: 600;
+            color: var(--primary);
+            font-weight: 700;
         }
 
         .nav-link.active::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -2px;
             left: 0;
             width: 100%;
             height: 3px;
-            background-color: var(--primary); 
+            background-color: var(--accent-yellow); 
             border-radius: 2px;
         }
 
@@ -139,23 +139,23 @@
         .container {
             background-color: var(--card-bg);
             border-radius: 20px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 8px 20px rgba(0, 82, 180, 0.05);
             width: 100%;
             max-width: 720px;
             padding: 40px;
-            border: 1px solid var(--border-color);
+            border: 2.5px solid var(--border-color);
         }
 
         .main-title {
             font-size: 2.1rem;
-            color: #23242A;
+            color: var(--primary);
             margin-bottom: 12px;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
 
         .main-subtitle {
-            color: #61606A;
+            color: #334155;
             font-size: 0.95rem;
             line-height: 1.5;
             margin-bottom: 24px;
@@ -163,8 +163,8 @@
 
         /* Alerta de Segurança Suave */
         .security-alert {
-            background-color: #F0F9F9;
-            border: 1px solid #D1EFEF;
+            background-color: #E6F4F1;
+            border: 1px solid #99F6E4;
             border-radius: 10px;
             padding: 14px 16px;
             display: flex;
@@ -172,7 +172,7 @@
             gap: 12px;
             margin-bottom: 28px;
             font-size: 0.9rem;
-            color: #2C6E6F;
+            color: #007A78;
             line-height: 1.4;
         }
 
@@ -198,7 +198,7 @@
         textarea {
             width: 100%;
             padding: 13px 15px;
-            border: 1px solid #E0DCED;
+            border: 1.5px solid var(--border-color);
             border-radius: 12px;
             font-size: 0.92rem;
             background-color: #FFFFFF;
@@ -211,7 +211,7 @@
         textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(151, 135, 194, 0.15);
+            box-shadow: 0 0 0 3px rgba(0, 82, 180, 0.15);
         }
 
         textarea {
@@ -224,9 +224,9 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            background: #FAF9FD;
+            background: #F8FAFC;
             padding: 16px;
-            border: 1px solid #EFEAF8;
+            border: 1.5px solid var(--border-color);
             border-radius: 12px;
         }
 
@@ -236,7 +236,7 @@
             gap: 10px;
             font-size: 0.9rem;
             font-weight: 400;
-            color: #43424A;
+            color: #334155;
             cursor: pointer;
             user-select: none;
         }
@@ -251,8 +251,8 @@
         .checkbox-item.highlight-all {
             margin-top: 6px;
             padding-top: 10px;
-            border-top: 1px dashed #E0DCED;
-            font-weight: 400;
+            border-top: 1px dashed var(--border-color);
+            font-weight: 600;
             color: var(--primary);
         }
 
@@ -268,6 +268,7 @@
             cursor: pointer;
             transition: background-color 0.2s;
             margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(0, 82, 180, 0.25);
         }
 
         .btn-submit:hover {
@@ -275,26 +276,27 @@
         }
 
         .btn-submit:disabled {
-            background-color: #DCD9E8;
-            color: #92909C;
+            background-color: #CBD5E1;
+            color: #64748B;
             cursor: not-allowed;
+            box-shadow: none;
         }
 
-        /* /* BOTÃO FLUTUANTE ESC (CÓDIGO DE REFERÊNCIA) */
+        /* BOTÃO FLUTUANTE ESC */
         .floating-esc-btn {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background-color: #EF4444;
+            background-color: var(--error-color);
             color: #FFFFFF;
-            border: 2px solid #DC2626;
+            border: 2px solid #FFFFFF;
             padding: 15px 24px;
             border-radius: 50px;
             font-weight: 700;
             font-size: 0.9rem;
             letter-spacing: 0.5px;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 10px 25px rgba(230, 0, 57, 0.4);
             z-index: 999;
             transition: transform 0.2s, background-color 0.2s;
             display: flex;
@@ -303,8 +305,8 @@
         }
 
         .floating-esc-btn:hover {
-            transform: scale(1.03);
-            background-color: #DC2626;
+            background-color: var(--error-hover);
+            transform: scale(1.05);
         }
 
         /* Feedback Messages */
@@ -321,15 +323,15 @@
         .success {
             display: block !important;
             background-color: #F0FDF4;
-            color: #2E7D32;
+            color: var(--success-color);
             border: 1px solid #DCFCE7;
         }
 
         .error {
             display: block !important;
-            background-color: #FEF2F2;
-            color: #C62828;
-            border: 1px solid #FEE2E2;
+            background-color: #FFF5F5;
+            color: var(--error-color);
+            border: 1px solid #FFE2E2;
         }
 
         /* REGRAS DE RESPONSIVIDADE (NOTEBOOK / TABLET / CELULAR) */
@@ -345,10 +347,10 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background-color: #F5F1F9;
+                background-color: var(--bg-color);
                 padding: 20px;
                 border-bottom: 2px solid var(--border-color);
-                box-shadow: 0 10px 15px rgba(0,0,0,0.03);
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
                 gap: 16px;
             }
 
@@ -411,8 +413,8 @@
             .floating-esc-btn {
                 bottom: 15px;
                 right: 15px;
-                padding: 10px 18px;
-                font-size: 0.8rem;
+                padding: 10px 16px;
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -537,7 +539,7 @@
     </main>
 
     <!-- BOTÃO FLUTUANTE ESC -->
-    <button class="floating-esc-btn" onclick="exitUrgent()">
+    <button class="floating-esc-btn" onclick="exitUrgent()" aria-label="Sair rapidamente da página">
         ⚠️ SAIR RÁPIDO (ESC)
     </button>
 
