@@ -15,10 +15,7 @@
         }
 
         body {
-            /* ALTERAÇÃO DE COR: Fundo gradiente em tons de azul suave */
-            background: linear-gradient(135deg, #EBF3FA, #E8F1F5, #EBF5F8);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background-color: #F0F6FF; 
             color: #0F172A;
             min-height: 100vh;
             display: flex;
@@ -26,22 +23,15 @@
             position: relative;
         }
 
-        /* Animação suave para o fundo */
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         /* CABEÇALHO PADRÃO DO PROJETO */
         header {
-            /* ALTERAÇÃO DE COR: Fundo e borda do cabeçalho em tom azul pastel */
-            background-color: #E2ECF8; 
-            padding: 14px 5%;
+            background-color: rgba(255, 255, 255, 0.95); 
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #CBDCEE; 
+            border-bottom: 3px solid #1EA7FD; 
             position: sticky;
             top: 0;
             z-index: 100;
@@ -54,27 +44,32 @@
         }
 
         .logo-img {
-            height: 36px;
-            width: auto;
+            height: 40px;
+            width: 40px;
             object-fit: contain;
+            border-radius: 50%;
         }
 
         .logo-texto h2 {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: #0F172A;
+            color: #0052B4;
             line-height: 1.1;
+            margin: 0;
         }
 
         .logo-texto span {
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             color: #475569;
             font-weight: 500;
+            display: block;
+            margin-top: 2px;
         }
 
         nav {
             display: flex;
-            gap: 18px;
+            align-items: center;
+            gap: 24px;
             flex-wrap: wrap;
         }
 
@@ -83,25 +78,24 @@
             color: #475569;
             font-size: 0.9rem;
             font-weight: 500;
-            padding-bottom: 4px;
+            padding-bottom: 6px;
             position: relative;
             transition: color 0.2s;
         }
 
         .nav-link:hover, .nav-link.active {
-            color: #0F172A;
-            font-weight: 600;
+            color: #0052B4;
+            font-weight: 700;
         }
 
         .nav-link.active::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -2px;
             left: 0;
             width: 100%;
             height: 3px;
-            /* ALTERAÇÃO DE COR: Indicador ativo azul principal */
-            background-color: #2563EB; 
+            background-color: #FFB703; 
             border-radius: 2px;
         }
 
@@ -121,7 +115,7 @@
 
         .page-header h1 {
             font-size: 2.2rem;
-            color: #0F172A;
+            color: #0052B4;
             font-weight: 700;
             margin-bottom: 10px;
             letter-spacing: -0.5px;
@@ -141,34 +135,31 @@
         }
 
         .tab-btn {
-            background: rgba(255, 255, 255, 0.7);
-            /* ALTERAÇÃO DE COR: Borda das abas inativas */
-            border: 2px solid #CBDCEE;
+            background: #FFFFFF;
+            border: 2px solid #BAE6FD;
             padding: 12px 28px;
             border-radius: 50px;
             font-size: 0.95rem;
             font-weight: 600;
-            color: #475569;
+            color: #0052B4;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 82, 180, 0.05);
         }
 
         .tab-btn:hover {
-            background: #FFFFFF;
-            /* ALTERAÇÃO DE COR: Hover nos botões de aba */
-            color: #2563EB;
-            border-color: #2563EB;
+            background: #E0F2FE;
+            border-color: #1EA7FD;
         }
 
         .tab-btn.active {
-            /* ALTERAÇÃO DE COR: Gradiente da aba ativa em tons de azul */
-            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+            background: #0052B4;
             color: #FFFFFF;
-            border-color: transparent;
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.25);
+            border-color: #0052B4;
+            box-shadow: 0 6px 20px rgba(0, 82, 180, 0.25);
         }
 
         /* SEÇÕES DE CONTEÚDO */
@@ -194,21 +185,20 @@
         }
 
         .video-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            background: #FFFFFF;
+            border: 2.5px solid #BAE6FD;
             border-radius: 20px;
             overflow: hidden;
-            /* ALTERAÇÃO DE COR: Sombra com tom azul velado */
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.06);
+            box-shadow: 0 8px 20px rgba(0, 82, 180, 0.05);
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .video-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.12);
+            border-color: #1EA7FD;
+            box-shadow: 0 12px 25px rgba(0, 82, 180, 0.12);
         }
 
         .video-thumb-container {
@@ -247,7 +237,7 @@
         .play-icon {
             width: 54px;
             height: 54px;
-            background: #FF0000;
+            background: #E60039;
             color: #FFFFFF;
             border-radius: 50%;
             display: flex;
@@ -255,7 +245,7 @@
             justify-content: center;
             font-size: 1.4rem;
             padding-left: 3px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(230, 0, 57, 0.4);
             transition: transform 0.3s ease, background 0.3s ease;
         }
 
@@ -265,7 +255,7 @@
 
         .video-thumb-container:hover .play-icon {
             transform: scale(1.15);
-            background: #CC0000;
+            background: #B3002D;
         }
 
         .card-body {
@@ -277,21 +267,21 @@
 
         .card-tag {
             align-self: flex-start;
-            /* ALTERAÇÃO DE COR: Fundo e texto das tags de categoria */
             background: #E0F2FE;
-            color: #0369A1;
+            color: #007A78;
             font-size: 0.75rem;
             font-weight: 700;
             padding: 4px 10px;
             border-radius: 12px;
             margin-bottom: 10px;
             text-transform: uppercase;
+            border: 1px solid #7DD3FC;
         }
 
         .card-title {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #0F172A;
+            color: #0052B4;
             margin-bottom: 8px;
             line-height: 1.3;
         }
@@ -306,8 +296,7 @@
         .btn-watch {
             margin-top: auto;
             align-self: flex-start;
-            /* ALTERAÇÃO DE COR: Link de assistir no YouTube */
-            color: #2563EB;
+            color: #0052B4;
             font-weight: 700;
             font-size: 0.88rem;
             text-decoration: none;
@@ -318,7 +307,7 @@
         }
 
         .btn-watch:hover {
-            color: #1D4ED8;
+            color: #003C85;
             text-decoration: underline;
         }
 
@@ -332,23 +321,22 @@
         }
 
         .article-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            background: #FFFFFF;
+            border: 2.5px solid #BAE6FD;
             border-radius: 20px;
             padding: 24px;
-            /* ALTERAÇÃO DE COR: Sombra dos artigos */
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.06);
+            box-shadow: 0 8px 20px rgba(0, 82, 180, 0.05);
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .article-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.12);
+            border-color: #1EA7FD;
+            box-shadow: 0 12px 25px rgba(0, 82, 180, 0.1);
         }
 
         .article-info {
@@ -358,8 +346,9 @@
         }
 
         .pdf-icon {
-            background: #FEE2E2;
-            color: #EF4444;
+            background: #FFF5F5;
+            color: #E60039;
+            border: 1.5px solid #E60039;
             width: 48px;
             height: 48px;
             border-radius: 12px;
@@ -373,7 +362,7 @@
         .article-details h3 {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #0F172A;
+            color: #0052B4;
             margin-bottom: 6px;
         }
 
@@ -385,9 +374,8 @@
 
         .btn-download {
             background-color: #FFFFFF;
-            /* ALTERAÇÃO DE COR: Botões de download do PDF */
-            border: 1.5px solid #CBDCEE;
-            color: #2563EB;
+            border: 2px solid #1EA7FD;
+            color: #0052B4;
             padding: 10px 20px;
             border-radius: 50px;
             font-size: 0.88rem;
@@ -401,9 +389,7 @@
         }
 
         .btn-download:hover {
-            background-color: #2563EB;
-            color: #FFFFFF;
-            border-color: #2563EB;
+            background-color: #E0F2FE;
         }
 
         /* BOTÃO FLUTUANTE ESC */
@@ -411,22 +397,25 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background-color: #EF4444;
+            background-color: #E60039;
             color: #FFFFFF;
-            border: 2px solid #DC2626;
+            border: 2px solid #FFFFFF;
             padding: 15px 24px;
             border-radius: 50px;
             font-weight: 700;
             font-size: 0.9rem;
             letter-spacing: 0.5px;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 10px 25px rgba(230, 0, 57, 0.4);
             z-index: 999;
             transition: transform 0.2s, background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .floating-esc-btn:hover {
-            background-color: #DC2626;
+            background-color: #B3002D;
             transform: scale(1.05);
         }
 
@@ -437,7 +426,6 @@
             padding: 20px;
             font-size: 0.8rem;
             color: #64748B;
-            /* ALTERAÇÃO DE COR: Borda superior do rodapé */
             border-top: 1px solid #E2E8F0;
             margin-top: auto;
         }
@@ -485,13 +473,19 @@
                 width: 100%;
                 justify-content: center;
             }
+            .floating-esc-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 16px;
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
 <body>
 
     <!-- BOTÃO FLUTUANTE ESC -->
-    <button class="floating-esc-btn" onclick="exitUrgent()">
+    <button class="floating-esc-btn" onclick="exitUrgent()" aria-label="Sair rapidamente da página">
         ⚠️ SAIR RÁPIDO (ESC)
     </button>
 
@@ -553,7 +547,7 @@
                     </div>
                 </div>
 
-                <!-- Vídeo 2: img3.png -->
+                <!-- Vídeo 2: img2.png -->
                 <div class="video-card">
                     <a href="https://www.youtube.com/watch?v=psieH5qBIpk" target="_blank" class="video-thumb-container">
                         <img src="./img2.png" alt="Conheça os 8 Tipos de Bullying Escolar">
@@ -569,7 +563,7 @@
                     </div>
                 </div>
 
-                <!-- Vídeo 3: img4.png (ou img.png) -->
+                <!-- Vídeo 3: img3.png -->
                 <div class="video-card">
                     <a href="https://www.youtube.com/watch?v=eQCm-Yl0oZs" target="_blank" class="video-thumb-container">
                         <img src="./img3.png" alt="Somos Todos Diferentes – Respeito às Diferenças">
