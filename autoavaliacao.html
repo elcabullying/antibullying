@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XXXX - Autoavaliação (PHQ-9)</title>
+    <title>Elça Alerta - Autoavaliação (PHQ-9)</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
 
@@ -15,10 +15,10 @@
         }
 
         body {
-            background: linear-gradient(135deg, #F4F0FA, #EBF3F7, #EBF7F5);
+            background: linear-gradient(135deg, #F0F6FF, #E0F2FE, #FEF3C7);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            color: #1A1C24;
+            color: #0F172A;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -31,15 +31,15 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* CABEÇALHO PADRÃO RESPONSIVO */
+        /* CABEÇALHO COMPACTO E RESPONSIVO */
         header {
-            background-color: rgba(240, 235, 247, 0.95); 
+            background-color: rgba(255, 255, 255, 0.95); 
             backdrop-filter: blur(10px);
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #E2D9F3; 
+            border-bottom: 3px solid #1EA7FD; 
             position: sticky;
             top: 0;
             z-index: 100;
@@ -53,21 +53,25 @@
 
         .logo-img {
             height: 40px;
-            width: auto;
+            width: 40px;
             object-fit: contain;
+            border-radius: 50%;
         }
 
         .logo-texto h2 {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: #1A1C24;
+            color: #0052B4;
             line-height: 1.1;
+            margin: 0;
         }
 
         .logo-texto span {
-            font-size: 0.8rem;
-            color: #706F78;
+            font-size: 0.72rem;
+            color: #475569;
             font-weight: 500;
+            display: block;
+            margin-top: 2px;
         }
 
         /* BOTÃO HAMBÚRGUER (CELULAR) */
@@ -76,7 +80,7 @@
             background: none;
             border: none;
             font-size: 1.8rem;
-            color: #1A1C24;
+            color: #0F172A;
             cursor: pointer;
             padding: 5px;
         }
@@ -89,7 +93,7 @@
 
         .nav-link {
             text-decoration: none;
-            color: #55545E;
+            color: #475569;
             font-size: 0.9rem;
             font-weight: 500;
             padding-bottom: 6px;
@@ -97,15 +101,19 @@
             transition: color 0.2s;
         }
 
-        .nav-link:hover, .nav-link.active { color: #1A1C24; font-weight: 600; }
+        .nav-link:hover, .nav-link.active {
+            color: #0052B4;
+            font-weight: 700;
+        }
+
         .nav-link.active::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -2px;
             left: 0;
             width: 100%;
             height: 3px;
-            background-color: #8367C7; 
+            background-color: #FFB703; 
             border-radius: 2px;
         }
 
@@ -122,24 +130,25 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 2px solid #BAE6FD;
             border-radius: 24px;
             padding: 40px;
-            box-shadow: 0 10px 30px rgba(131, 103, 199, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 82, 180, 0.05);
             transition: all 0.3s ease;
         }
 
         .quiz-header h1 {
             font-size: 1.8rem;
-            color: #1A1C24;
+            color: #0052B4;
             margin-bottom: 12px;
+            font-weight: 700;
         }
 
         .quiz-header p {
-            color: #55545E;
+            color: #475569;
             font-size: 0.98rem;
             line-height: 1.5;
             margin-bottom: 25px;
@@ -148,8 +157,8 @@
         /* BARRA DE PROGRESSO */
         .progress-bar-container {
             width: 100%;
-            height: 6px;
-            background-color: #E2D9F3;
+            height: 8px;
+            background-color: #E0F2FE;
             border-radius: 10px;
             margin-bottom: 30px;
             overflow: hidden;
@@ -158,13 +167,13 @@
         .progress-bar-fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #9d85db, #8367C7);
+            background: linear-gradient(90deg, #1EA7FD, #0052B4);
             transition: width 0.3s ease;
         }
 
         /* QUESTÕES */
         .question-wrapper {
-            display: none; /* Controlado via JS */
+            display: none;
         }
 
         .question-wrapper.active {
@@ -180,7 +189,7 @@
         .question-text {
             font-size: 1.25rem;
             font-weight: 600;
-            color: #1A1C24;
+            color: #0F172A;
             margin-bottom: 25px;
             line-height: 1.4;
         }
@@ -192,23 +201,25 @@
         }
 
         .option-btn {
-            background: rgba(255, 255, 255, 0.8);
-            border: 1.5px solid #D6CBEB;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #BAE6FD;
             padding: 16px 20px;
             border-radius: 14px;
             text-align: left;
             font-size: 1rem;
             font-weight: 500;
-            color: #333333;
+            color: #475569;
             cursor: pointer;
             transition: all 0.2s;
             width: 100%;
         }
 
         .option-btn:hover {
-            border-color: #8367C7;
+            border-color: #1EA7FD;
+            color: #0052B4;
             background-color: #FFFFFF;
-            transform: translateX(3px);
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0, 82, 180, 0.08);
         }
 
         /* TELA DE RESULTADOS */
@@ -226,12 +237,12 @@
             display: inline-block;
             font-size: 2.5rem;
             font-weight: 700;
-            color: #8367C7;
-            background: #F0EBF7;
+            color: #0052B4;
+            background: #E0F2FE;
             padding: 15px 30px;
             border-radius: 50px;
             margin-bottom: 20px;
-            border: 2px solid #D6CBEB;
+            border: 2px solid #BAE6FD;
         }
 
         .result-title {
@@ -242,26 +253,26 @@
 
         .result-desc {
             font-size: 1.05rem;
-            color: #55545E;
+            color: #475569;
             line-height: 1.6;
             margin-bottom: 30px;
             text-align: justify;
         }
 
         .disclaimer-box {
-            background-color: #FFF2EE;
-            border: 1.5px solid #FEEBC8;
+            background-color: #FEF3C7;
+            border: 1.5px solid #FCD34D;
             padding: 16px;
             border-radius: 12px;
             font-size: 0.9rem;
-            color: #C05621;
+            color: #92400E;
             text-align: left;
             margin-bottom: 25px;
             line-height: 1.4;
         }
 
         .btn-restart {
-            background: linear-gradient(135deg, #9d85db 0%, #8367C7 100%);
+            background: linear-gradient(135deg, #1EA7FD 0%, #0052B4 100%);
             color: #FFFFFF;
             border: none;
             padding: 14px 36px;
@@ -269,22 +280,23 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(131, 103, 199, 0.25);
+            box-shadow: 0 6px 20px rgba(0, 82, 180, 0.25);
             transition: all 0.2s;
         }
 
         .btn-restart:hover {
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 82, 180, 0.35);
         }
 
-        /* NOTA DE RODAPÉ DISCRETA */
+        /* NOTA DE RODAPÉ */
         footer {
             background-color: #FFFFFF;
             text-align: center;
             padding: 20px;
             font-size: 0.8rem;
-            color: #92919A;
-            border-top: 1px solid #EAE6F0;
+            color: #64748B;
+            border-top: 1px solid #E2E8F0;
             margin-top: auto;
         }
 
@@ -293,116 +305,61 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background-color: #EF4444;
+            background-color: #E60039;
             color: #FFFFFF;
-            border: 2px solid #DC2626;
+            border: 2px solid #FFFFFF;
             padding: 15px 24px;
             border-radius: 50px;
             font-weight: 700;
             font-size: 0.9rem;
             letter-spacing: 0.5px;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 10px 25px rgba(230, 0, 57, 0.4);
             z-index: 999;
             transition: transform 0.2s, background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .floating-esc-btn:hover {
-            background-color: #DC2626;
+            background-color: #B3002D;
             transform: scale(1.05);
         }
 
-        /* REGRAS DE RESPONSIVIDADE (NOTEBOOK / TABLET / CELULAR) */
-
-        /* Tablets e Celulares Maiores */
+        /* REGRAS DE RESPONSIVIDADE */
         @media (max-width: 820px) {
             .hamburger-btn {
-                display: block; /* Revela o menu de três barrinhas */
+                display: block;
             }
 
             nav {
-                display: none; /* Esconde o menu por padrão no mobile */
+                display: none;
                 flex-direction: column;
                 position: absolute;
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background-color: #F4F0FA;
+                background-color: #F0F6FF;
                 padding: 20px;
-                border-bottom: 2px solid #E2D9F3;
+                border-bottom: 2px solid #BAE6FD;
                 box-shadow: 0 10px 15px rgba(0,0,0,0.05);
                 gap: 16px;
             }
 
             nav.active {
-                display: flex; /* Exibe o menu ao clicar no botão */
+                display: flex;
             }
 
             .nav-link.active::after {
                 display: none;
             }
-
-            .quiz-container {
-                margin: 20px auto;
-                padding: 15px;
-            }
-
-            .glass-card {
-                padding: 30px 20px;
-            }
-
-            .quiz-header h1 {
-                font-size: 1.5rem;
-            }
-
-            .question-text {
-                font-size: 1.15rem;
-            }
         }
 
-        /* Dispositivos Móveis (Celulares) */
         @media (max-width: 600px) {
-            .glass-card {
-                padding: 25px 15px;
-                border-radius: 18px;
-            }
-
-            .quiz-header h1 {
-                font-size: 1.35rem;
-            }
-
-            .quiz-header p {
-                font-size: 0.9rem;
-            }
-
-            .question-text {
-                font-size: 1.05rem;
-                margin-bottom: 18px;
-            }
-
-            .option-btn {
-                padding: 14px 16px;
-                font-size: 0.9rem;
-                border-radius: 12px;
-            }
-
-            .option-btn:hover {
-                transform: none; /* Desativa deslocamento lateral em telas de toque */
-            }
-
-            .score-badge {
-                font-size: 2rem;
-                padding: 10px 24px;
-            }
-
-            .result-title {
-                font-size: 1.25rem;
-            }
-
-            .result-desc {
-                font-size: 0.95rem;
-            }
-
+            .glass-card { padding: 25px; }
+            .question-text { font-size: 1.1rem; }
+            .option-btn { padding: 14px 16px; font-size: 0.95rem; }
             .floating-esc-btn {
                 bottom: 15px;
                 right: 15px;
@@ -415,7 +372,7 @@
 <body>
 
     <!-- BOTÃO FLUTUANTE ESC -->
-    <button class="floating-esc-btn" onclick="exitUrgent()">
+    <button class="floating-esc-btn" onclick="exitUrgent()" aria-label="Sair rapidamente da página">
         ⚠️ SAIR RÁPIDO (ESC)
     </button>
 
@@ -424,11 +381,11 @@
         <div class="logo-area">
             <img src="./logo.png" alt="Logo Voz Segura" class="logo-img">
             <div class="logo-texto">
-                <h2>XXXX</h2>
+                <h2>Elça Alerta</h2>
                 <span>Juntos contra o bullying</span>
             </div>
         </div>
-
+        
         <!-- BOTÃO TRES BARRINHAS -->
         <button class="hamburger-btn" onclick="toggleMenu()" aria-label="Abrir Menu">
             ☰
@@ -482,16 +439,16 @@
 
     <!-- NOTA DE RODAPÉ -->
     <footer>
-        &copy; 2026 XXXX &bull; Projeto desenvolvido pela Escola Elça Carvalho da Fonseca. Todos os direitos reservados.
+        &copy; 2026 Elça Alerta &bull; Projeto desenvolvido pela Escola Elça Carvalho da Fonseca. Todos os direitos reservados.
     </footer>
 
+    <!-- SCRIPT DE INTERAÇÕES E LÓGICA DO QUIZ -->
     <script>
         function toggleMenu() {
             const nav = document.getElementById('nav-menu');
             nav.classList.toggle('active');
         }
 
-        // Definição das 9 perguntas oficiais do PHQ-9
         const phq9Questions = [
             "Pouco interesse ou prazer em fazer as coisas?",
             "Sentir-se para baixo, deprimido(a) ou sem perspectiva?",
@@ -504,7 +461,6 @@
             "Pensamentos de que seria melhor estar morto(a) ou de se machucar de alguma maneira?"
         ];
 
-        // Opções oficiais de resposta com suas respectivas pontuações
         const options = [
             { text: "Nenhuma vez", score: 0 },
             { text: "Vários dias", score: 1 },
@@ -515,7 +471,6 @@
         let currentQuestionIndex = 0;
         let totalScore = 0;
 
-        // Inicia o Questionário
         function startQuiz() {
             document.getElementById('intro-screen').style.display = 'none';
             document.getElementById('quiz-flow').style.display = 'block';
@@ -524,7 +479,6 @@
             renderQuestion();
         }
 
-        // Renderiza a pergunta atual na tela
         function renderQuestion() {
             const container = document.getElementById('question-container');
             const percent = ((currentQuestionIndex) / phq9Questions.length) * 100;
@@ -544,7 +498,6 @@
             container.innerHTML = html;
         }
 
-        // Processa a resposta selecionada e passa para a próxima questão
         function handleAnswer(score) {
             totalScore += score;
             currentQuestionIndex++;
@@ -556,7 +509,6 @@
             }
         }
 
-        // Exibe o diagnóstico com base na escala científica do PHQ-9
         function showResults() {
             document.getElementById('quiz-flow').style.display = 'none';
             const resultScreen = document.getElementById('result-screen');
@@ -569,34 +521,32 @@
 
             if (totalScore <= 4) {
                 statusElement.innerText = "Sintomas Mínimos ou Ausentes";
-                statusElement.style.color = "#2C7A7B";
+                statusElement.style.color = "#0284C7";
                 guidanceElement.innerText = "Sua pontuação indica que você apresenta poucos ou nenhum sintoma depressivo no momento. Continue cuidando do seu bem-estar emocional, praticando suas atividades favoritas e mantendo boas relações.";
             } else if (totalScore <= 9) {
                 statusElement.innerText = "Sintomas Leves";
-                statusElement.style.color = "#D69E2E";
+                statusElement.style.color = "#D97706";
                 guidanceElement.innerText = "Você está apresentando sinais leves de estresse ou tristeza. Pode ser um reflexo de uma fase difícil na escola ou rotina. Experimente usar a nossa aba de Meditação para descompressão. Se esses sentimentos persistirem ou começarem a te atrapalhar, converse com alguém de confiança.";
             } else if (totalScore <= 14) {
                 statusElement.innerText = "Depressão Moderada";
-                statusElement.style.color = "#DD6B20";
+                statusElement.style.color = "#EA580C";
                 guidanceElement.innerText = "Sua pontuação aponta para sintomas moderados. É recomendável que você procure uma orientação profissional (como o psicólogo da escola, um posto de saúde ou o CVV) para conversar sobre o que está sentindo. Não guarde esse peso apenas com você.";
             } else if (totalScore <= 19) {
                 statusElement.innerText = "Depressão Moderadamente Grave";
-                statusElement.style.color = "#E53E3E";
+                statusElement.style.color = "#DC2626";
                 guidanceElement.innerText = "Atenção: seus sintomas estão em um nível considerável e podem estar interferindo bastante no seu dia a dia, nos estudos e no seu sono. É muito importante buscar apoio de um profissional de saúde mental ou relatar a situação para os seus responsáveis para que receba o suporte correto.";
             } else {
                 statusElement.innerText = "Depressão Grave";
-                statusElement.style.color = "#9B2C2C";
+                statusElement.style.color = "#991B1B";
                 guidanceElement.innerText = "Sua pontuação indica sintomas graves que requerem avaliação médica e psicológica especializada o quanto antes. Por favor, lembre-se de que você não precisa carregar isso sozinho(a). Busque ajuda profissional imediata ou utilize o canal do CVV ligando para o 188.";
             }
         }
 
-        // Reinicia o quiz
         function resetQuiz() {
             document.getElementById('result-screen').classList.remove('active');
             document.getElementById('intro-screen').style.display = 'block';
         }
 
-        // Função do Botão de Pânico / ESC
         function exitUrgent() {
             window.location.href = 'https://www.google.com';
         }
