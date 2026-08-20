@@ -299,10 +299,149 @@
             line-height: 1.6;
         }
 
+        /* SEÇÃO EQUIPE ORGANIZADORA */
+        .team-section {
+            background-color: #F0F6FF;
+            padding: 80px 40px;
+            text-align: center;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        .team-section h2 {
+            font-size: 2rem;
+            color: #0052B4;
+            margin-bottom: 16px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+        }
+
+        .team-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 35%;
+            width: 30%;
+            height: 4px;
+            background-color: #FFB703;
+            border-radius: 2px;
+        }
+
+        .team-section > p {
+            color: #475569;
+            font-size: 1.05rem;
+            margin-bottom: 40px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background-color: #FFFFFF;
+            border: 2px solid #BAE6FD;
+            border-radius: 20px;
+            padding: 24px 16px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 82, 180, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #1EA7FD;
+            margin-bottom: 16px;
+        }
+
+        .team-card h4 {
+            font-size: 1.1rem;
+            color: #0052B4;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .team-card span {
+            font-size: 0.85rem;
+            color: #475569;
+            font-weight: 600;
+            display: block;
+        }
+
+        /* SEÇÃO EQUIPE PEDAGÓGICA */
+        .pedagogical-section {
+            background-color: #FFFFFF;
+            padding: 80px 40px;
+            border-top: 1px solid #E2E8F0;
+        }
+
+        .pedagogical-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .pedagogical-img-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pedagogical-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            border: 3px solid #1EA7FD;
+            box-shadow: 0 8px 20px rgba(0, 82, 180, 0.1);
+        }
+
+        .pedagogical-text {
+            flex: 1;
+        }
+
+        .pedagogical-text h2 {
+            font-size: 2rem;
+            color: #0052B4;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .pedagogical-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: #FFB703;
+            border-radius: 2px;
+        }
+
+        .pedagogical-text p {
+            color: #334155;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
         /* SEÇÃO FINAL */
         .footer-banner-section {
             background-color: #FFFFFF;
-            padding: 0 40px 40px 40px;
+            padding: 40px 40px 40px 40px;
         }
 
         .banner-beige {
@@ -437,6 +576,9 @@
             .hero-info h1 {
                 font-size: 2.5rem;
             }
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         /* Tablets e Celulares Maiores */
@@ -489,6 +631,16 @@
                 grid-template-columns: repeat(2, 1fr); /* 2 colunas em tablets */
             }
 
+            .pedagogical-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .pedagogical-text h2::after {
+                left: 35%;
+                width: 30%;
+            }
+
             .banner-beige {
                 flex-direction: column;
                 padding: 30px 20px;
@@ -502,7 +654,7 @@
 
         /* Dispositivos Móveis (Celulares) */
         @media (max-width: 600px) {
-            .cards-container {
+            .cards-container, .team-grid {
                 grid-template-columns: 1fr; /* 1 card por linha */
             }
 
@@ -514,11 +666,11 @@
                 width: 260px; 
             }
 
-            .middle-section {
+            .middle-section, .team-section, .pedagogical-section {
                 padding: 40px 15px;
             }
 
-            .middle-section h2 {
+            .middle-section h2, .team-section h2, .pedagogical-text h2 {
                 font-size: 1.5rem;
             }
 
@@ -612,6 +764,52 @@
                 <div class="card-circle-icon icon-orange">👥</div>
                 <h3>É transformador</h3>
                 <p>Sua atitude pode proteger outras pessoas e transformar realidades.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO EQUIPE ORGANIZADORA -->
+    <section class="team-section">
+        <h2>Equipe Organizadora</h2>
+        <p>Conheça os responsáveis pela concepção e desenvolvimento do projeto.</p>
+
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="./criador1.JPEG" alt="Foto do Organizador 1">
+                <h4>Miguel Rocha</h4>
+                <span>Aluno do 8° ano</span>
+                <span>Elça Carvalho da Fonseca</span>
+            </div>
+            <div class="team-card">
+                <img src="./Criador2.JPEG" alt="Foto do Organizador 2">
+                <h4>Liz Miriã</h4>
+                <span>Aluno do 9° ano</span>
+                <span>Elça Carvalho da Fonseca</span>
+            </div>
+            <div class="team-card">
+                <img src="./criador3.JPEG" alt="Foto do Organizador 3">
+                <h4>Emilly Gabrielly</h4>
+                <span>Aluno do 9° ano</span>
+                <span>Elça Carvalho da Fonseca</span>
+            </div>
+            <div class="team-card">
+                <img src="./coordenadora.JPEG" alt="Foto do Orientador">
+                <h4>Nome do Orientador</h4>
+                <span>Orientador do Projeto</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO EQUIPE PEDAGÓGICA -->
+    <section class="pedagogical-section">
+        <div class="pedagogical-container">
+            <div class="pedagogical-img-area">
+                <img src="./equipe.JPEG" alt="Equipe Pedagógica" class="pedagogical-img">
+            </div>
+            <div class="pedagogical-text">
+                <h2>Equipe Pedagógica</h2>
+                <p>Nossa equipe é composta pelo Gestor Escolar, Leandro Rocha, Gestoras Adjuntas, Rafaela Barbosa e Kaline Souza, e Coordenadora Pedagógica, Rosângela Barbosa. Nossa missão é garantir um ambiente escolar seguro, acolhedor e focado no bem-estar emocional e social de todos os estudantes.</p>
+                <p>Trabalhamos continuamente na mediação de conflitos, na conscientização sobre o bullying e no fortalecimento de redes de apoio com profissionais da educação e da saúde mental.</p>
             </div>
         </div>
     </section>
