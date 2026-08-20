@@ -15,8 +15,8 @@
         }
 
         body {
-            background-color: #F2F7F7; 
-            color: #12262A;
+            background-color: #F0F6FF; 
+            color: #0F172A;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -25,13 +25,13 @@
 
         /* CABEÇALHO COMPACTO E RESPONSIVO */
         header {
-            background-color: rgba(235, 244, 244, 0.95); 
+            background-color: rgba(255, 255, 255, 0.95); 
             backdrop-filter: blur(10px);
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #D0E3E5; 
+            border-bottom: 3px solid #1EA7FD; 
             position: sticky;
             top: 0;
             z-index: 100;
@@ -53,14 +53,14 @@
         .logo-texto h2 {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #12262A;
+            color: #0052B4;
             line-height: 1.1;
             margin: 0;
         }
 
         .logo-texto span {
             font-size: 0.72rem;
-            color: #537075;
+            color: #475569;
             font-weight: 500;
             display: block;
             margin-top: 2px;
@@ -72,7 +72,7 @@
             background: none;
             border: none;
             font-size: 1.8rem;
-            color: #12262A;
+            color: #0F172A;
             cursor: pointer;
             padding: 5px;
         }
@@ -85,7 +85,7 @@
 
         .nav-link {
             text-decoration: none;
-            color: #405B60;
+            color: #475569;
             font-size: 0.9rem;
             font-weight: 500;
             padding-bottom: 6px;
@@ -94,7 +94,7 @@
         }
 
         .nav-link:hover, .nav-link.active {
-            color: #12262A;
+            color: #0052B4;
             font-weight: 700;
         }
 
@@ -105,7 +105,7 @@
             left: 0;
             width: 100%;
             height: 3px;
-            background-color: #0F766E; 
+            background-color: #FFB703; 
             border-radius: 2px;
         }
 
@@ -128,7 +128,7 @@
 
         .hero-info h1 {
             font-size: 3rem;
-            color: #12262A;
+            color: #0052B4;
             line-height: 1.15;
             margin-bottom: 24px;
             font-weight: 700;
@@ -136,7 +136,7 @@
 
         .hero-info p {
             font-size: 1.1rem;
-            color: #405B60;
+            color: #334155;
             line-height: 1.6;
             margin-bottom: 35px;
         }
@@ -150,7 +150,7 @@
         }
 
         .btn-purple {
-            background-color: #0F766E;
+            background-color: #0052B4;
             color: #FFFFFF;
             text-decoration: none;
             text-align: center;
@@ -162,24 +162,24 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 82, 180, 0.25);
             transition: background-color 0.2s;
         }
 
         .btn-purple:hover {
-            background-color: #0D635C;
+            background-color: #003C85;
         }
 
         .btn-outline-purple {
             background-color: #FFFFFF;
-            color: #0F766E;
+            color: #0052B4;
             text-decoration: none;
             text-align: center;
             padding: 16px;
             border-radius: 12px;
             font-weight: 600;
             font-size: 1rem;
-            border: 1px solid #B4D3D5;
+            border: 2px solid #1EA7FD;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -188,12 +188,13 @@
         }
 
         .btn-outline-purple:hover {
-            background-color: #EBF4F4;
+            background-color: #E0F2FE;
         }
 
         .text-seguro {
             font-size: 0.85rem;
-            color: #537075;
+            color: #007A78;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -218,12 +219,12 @@
             background-color: #FFFFFF;
             padding: 80px 40px;
             text-align: center;
-            border-top: 1px solid #E2ECEC;
+            border-top: 1px solid #E2E8F0;
         }
 
         .middle-section h2 {
             font-size: 2rem;
-            color: #12262A;
+            color: #0052B4;
             margin-bottom: 16px;
             position: relative;
             display: inline-block;
@@ -236,13 +237,13 @@
             bottom: 0;
             left: 35%;
             width: 30%;
-            height: 3px;
-            background-color: #0F766E;
+            height: 4px;
+            background-color: #FFB703;
             border-radius: 2px;
         }
 
         .middle-section > p {
-            color: #405B60;
+            color: #475569;
             font-size: 1.05rem;
             margin-bottom: 50px;
         }
@@ -257,17 +258,17 @@
 
         .card-box {
             background-color: #FFFFFF;
-            border: 2.5px solid #CCDFE0; 
+            border: 2.5px solid #BAE6FD; 
             padding: 40px 30px;
             border-radius: 20px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(15, 118, 110, 0.05); 
+            box-shadow: 0 8px 20px rgba(0, 82, 180, 0.05); 
             transition: transform 0.3s, border-color 0.3s;
         }
 
         .card-box:hover {
             transform: translateY(-5px);
-            border-color: #0F766E; 
+            border-color: #1EA7FD; 
         }
 
         .card-circle-icon {
@@ -281,20 +282,20 @@
             font-size: 1.3rem;
         }
 
-        .icon-blue { background-color: #E6F4F1; color: #0F766E; border: 1px solid #B4D3D5; }
-        .icon-purple { background-color: #F2EBF9; color: #7C3AED; border: 1px solid #DDD6FE; }
-        .icon-orange { background-color: #FFF1F0; color: #E05638; border: 1px solid #FFCCD5; }
+        .icon-blue { background-color: #E0F2FE; color: #0052B4; border: 1px solid #7DD3FC; }
+        .icon-purple { background-color: #E6F4F1; color: #007A78; border: 1px solid #99F6E4; }
+        .icon-orange { background-color: #FEF3C7; color: #D97706; border: 1px solid #FDE68A; }
 
         .card-box h3 {
             font-size: 1.25rem;
-            color: #12262A;
+            color: #0052B4;
             margin-bottom: 12px;
             font-weight: 700;
         }
 
         .card-box p {
             font-size: 0.98rem;
-            color: #405B60;
+            color: #475569;
             line-height: 1.6;
         }
 
@@ -305,8 +306,8 @@
         }
 
         .banner-beige {
-            background-color: #F8F6F0; 
-            border: 2px solid #EAE3D2; 
+            background-color: #FFFBEB; 
+            border: 2px solid #FDE68A; 
             border-radius: 24px;
             max-width: 1200px;
             margin: 0 auto;
@@ -325,13 +326,13 @@
 
         .banner-left h2 {
             font-size: 1.8rem;
-            color: #12262A;
+            color: #0052B4;
             margin-bottom: 16px;
             line-height: 1.3;
         }
 
         .banner-left p {
-            color: #405B60;
+            color: #334155;
             font-size: 1.05rem;
         }
 
@@ -340,10 +341,10 @@
             min-width: 320px;
             max-width: 480px;
             background-color: #FFFFFF;
-            border: 3px solid #0F766E; 
+            border: 3px solid #0052B4; 
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 12px 25px rgba(15, 118, 110, 0.08);
+            box-shadow: 0 12px 25px rgba(0, 82, 180, 0.1);
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -351,17 +352,17 @@
 
         .banner-right-channels h3 {
             font-size: 1.2rem;
-            color: #12262A;
+            color: #0052B4;
         }
 
         .channel-card-white {
-            background-color: #FFFDF5; 
+            background-color: #FFF5F5; 
             padding: 16px 20px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             gap: 16px;
-            border: 1.5px solid #E05638;
+            border: 1.5px solid #E60039;
             text-decoration: none;
             color: inherit;
             transition: transform 0.2s, box-shadow 0.2s;
@@ -369,23 +370,23 @@
 
         .channel-card-white:hover {
             transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(224, 86, 56, 0.15);
+            box-shadow: 0 4px 12px rgba(230, 0, 57, 0.15);
         }
 
         .channel-card-white .phone-icon {
             font-size: 1.3rem;
-            color: #E05638;
+            color: #E60039;
         }
 
         .channel-card-details h4 {
             font-size: 1rem;
-            color: #12262A;
+            color: #0F172A;
             font-weight: 700;
         }
 
         .channel-card-details p {
             font-size: 0.85rem;
-            color: #405B60;
+            color: #475569;
         }
 
         /* NOTA DE RODAPÉ */
@@ -394,8 +395,8 @@
             text-align: center;
             padding: 20px;
             font-size: 0.8rem;
-            color: #728A8E;
-            border-top: 1px solid #E2ECEC;
+            color: #64748B;
+            border-top: 1px solid #E2E8F0;
             margin-top: auto;
         }
 
@@ -404,16 +405,16 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background-color: #DC2626;
+            background-color: #E60039;
             color: #FFFFFF;
-            border: 2px solid #B91C1C;
+            border: 2px solid #FFFFFF;
             padding: 15px 24px;
             border-radius: 50px;
             font-weight: 700;
             font-size: 0.9rem;
             letter-spacing: 0.5px;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+            box-shadow: 0 10px 25px rgba(230, 0, 57, 0.4);
             z-index: 999;
             transition: transform 0.2s, background-color 0.2s;
             display: flex;
@@ -422,7 +423,7 @@
         }
 
         .floating-esc-btn:hover {
-            background-color: #B91C1C;
+            background-color: #B3002D;
             transform: scale(1.05);
         }
 
@@ -451,9 +452,9 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background-color: #F2F7F7;
+                background-color: #F0F6FF;
                 padding: 20px;
-                border-bottom: 2px solid #D0E3E5;
+                border-bottom: 2px solid #BAE6FD;
                 box-shadow: 0 10px 15px rgba(0,0,0,0.05);
                 gap: 16px;
             }
