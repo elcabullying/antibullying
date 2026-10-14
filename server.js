@@ -7,22 +7,25 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Definir o caminho para o frontend (pasta pai "site")
+const caminhoFrontend = path.join(__dirname, '..');
+
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Servir arquivos estáticos padrão
-app.use(express.static(__dirname));
+// Servir arquivos estáticos buscando na pasta do frontend
+app.use(express.static(caminhoFrontend));
 
 // Rota principal (raiz do site)
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(caminhoFrontend, 'index.html'));
 });
 
 // Rota dinâmica para entregar QUALQUER imagem .png
 app.get('/:imagem.png', (req, res) => {
   const imagem = req.params.imagem;
-  res.sendFile(path.join(__dirname, `${imagem}.png`), (err) => {
+  res.sendFile(path.join(caminhoFrontend, `${imagem}.png`), (err) => {
     if (err) {
       res.status(404).send('Imagem não encontrada');
     }
@@ -32,7 +35,7 @@ app.get('/:imagem.png', (req, res) => {
 // Rota dinâmica para entregar QUALQUER arquivo .pdf
 app.get('/:documento.pdf', (req, res) => {
   const documento = req.params.documento;
-  res.sendFile(path.join(__dirname, `${documento}.pdf`), (err) => {
+  res.sendFile(path.join(caminhoFrontend, `${documento}.pdf`), (err) => {
     if (err) {
       res.status(404).send('Documento PDF não encontrado');
     }
@@ -42,7 +45,7 @@ app.get('/:documento.pdf', (req, res) => {
 // Rota dinâmica para abrir qualquer página .html (suporta nomes com acento)
 app.get('/:pagina.html', (req, res) => {
   const pagina = decodeURIComponent(req.params.pagina);
-  res.sendFile(path.join(__dirname, `${pagina}.html`), (err) => {
+  res.sendFile(path.join(caminhoFrontend, `${pagina}.html`), (err) => {
     if (err) {
       res.status(404).send('Página não encontrada');
     }
@@ -61,6 +64,7 @@ app.post('/api/relato', async (req, res) => {
     frequencia 
   } = req.body || {};
 
+  // Validação dos campos obrigatórios
   if (!descricao || !tipo_bullying || !local || !vitima_testemunha) {
     return res.status(400).json({ 
       success: false, 
@@ -68,19 +72,35 @@ app.post('/api/relato', async (req, res) => {
     });
   }
 
+  // Tratamento de credenciais (remove espaços acidentais)
+  const emailUser = (process.env.EMAIL_USER || '').trim();
+  const emailPass = (process.env.EMAIL_PASS || '').replace(/\s+/g, '');
+  const emailDestino = (process.env.EMAIL_DESTINO || emailUser).trim();
+
+  if (!emailUser || !emailPass) {
+    return res.status(500).json({
+      success: false,
+      mensagem: 'Configuração pendente: Variáveis EMAIL_USER ou EMAIL_PASS não foram definidas no servidor.'
+    });
+  }
+
+  // Configuração do transportador Nodemailer
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
-    secure: true,
+    secure: true, // Conexão SSL na porta 465
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
+      user: emailUser,
+      pass: emailPass
+    },
+    tls: {
+      rejectUnauthorized: false // Ignora restrições de certificado SSL da rede local ou antivírus
     }
   });
 
   const mailOptions = {
-    from: `"Voz Segura" <${process.env.EMAIL_USER}>`,
-    to: process.env.EMAIL_DESTINO || process.env.EMAIL_USER,
+    from: `"Voz Segura" <${emailUser}>`,
+    to: emailDestino,
     subject: `[Voz Segura] Novo Relato: ${tipo_bullying}`,
     html: `
       <div style="font-family: Arial, sans-serif; color: #1A1C24; max-width: 600px; margin: 0 auto; border: 1px solid #E2D9F3; border-radius: 12px; padding: 24px; background-color: #ffffff;">
@@ -126,8 +146,17 @@ app.post('/api/relato', async (req, res) => {
     await transporter.sendMail(mailOptions);
     return res.status(200).json({ success: true, mensagem: 'Relato enviado com sucesso.' });
   } catch (error) {
+    console.error('❌ Erro no envio do e-mail:', error);
     return res.status(500).json({ success: false, mensagem: 'Erro ao enviar e-mail.', detalhes: error.message });
   }
+});
+
+// Fallback de rota para servir o index.html caso acesse rotas do frontend
+app.get('*', (req, res, next) => {
+  if (req.url.includes('.')) {
+    return next();
+  }
+  res.sendFile(path.join(caminhoFrontend, 'index.html'));
 });
 
 if (!process.env.VERCEL) {
