@@ -7,14 +7,14 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Definir o caminho para o frontend (pasta pai "site")
-const caminhoFrontend = path.join(__dirname, '..');
+// Correção: Aponta para o diretório atual onde estão os arquivos HTML e assets
+const caminhoFrontend = __dirname;
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Servir arquivos estáticos buscando na pasta do frontend
+// Servir arquivos estáticos da raiz
 app.use(express.static(caminhoFrontend));
 
 // Rota principal (raiz do site)
@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(caminhoFrontend, 'index.html'));
 });
 
-// Rota dinâmica para entregar QUALQUER imagem .png
+// Rota dinâmica para entregar imagens .png
 app.get('/:imagem.png', (req, res) => {
   const imagem = req.params.imagem;
   res.sendFile(path.join(caminhoFrontend, `${imagem}.png`), (err) => {
@@ -32,7 +32,7 @@ app.get('/:imagem.png', (req, res) => {
   });
 });
 
-// Rota dinâmica para entregar QUALQUER arquivo .pdf
+// Rota dinâmica para arquivos .pdf
 app.get('/:documento.pdf', (req, res) => {
   const documento = req.params.documento;
   res.sendFile(path.join(caminhoFrontend, `${documento}.pdf`), (err) => {
@@ -42,7 +42,7 @@ app.get('/:documento.pdf', (req, res) => {
   });
 });
 
-// Rota dinâmica para abrir qualquer página .html (suporta nomes com acento)
+// Rota dinâmica para páginas .html
 app.get('/:pagina.html', (req, res) => {
   const pagina = decodeURIComponent(req.params.pagina);
   res.sendFile(path.join(caminhoFrontend, `${pagina}.html`), (err) => {
@@ -64,7 +64,6 @@ app.post('/api/relato', async (req, res) => {
     frequencia 
   } = req.body || {};
 
-  // Validação dos campos obrigatórios
   if (!descricao || !tipo_bullying || !local || !vitima_testemunha) {
     return res.status(400).json({ 
       success: false, 
@@ -72,7 +71,6 @@ app.post('/api/relato', async (req, res) => {
     });
   }
 
-  // Tratamento de credenciais (remove espaços acidentais)
   const emailUser = (process.env.EMAIL_USER || '').trim();
   const emailPass = (process.env.EMAIL_PASS || '').replace(/\s+/g, '');
   const emailDestino = (process.env.EMAIL_DESTINO || emailUser).trim();
@@ -80,21 +78,20 @@ app.post('/api/relato', async (req, res) => {
   if (!emailUser || !emailPass) {
     return res.status(500).json({
       success: false,
-      mensagem: 'Configuração pendente: Variáveis EMAIL_USER ou EMAIL_PASS não foram definidas no servidor.'
+      mensagem: 'Configuração pendente: Variáveis EMAIL_USER ou EMAIL_PASS não definidas.'
     });
   }
 
-  // Configuração do transportador Nodemailer
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
-    secure: true, // Conexão SSL na porta 465
+    secure: true,
     auth: {
       user: emailUser,
       pass: emailPass
     },
     tls: {
-      rejectUnauthorized: false // Ignora restrições de certificado SSL da rede local ou antivírus
+      rejectUnauthorized: false
     }
   });
 
@@ -104,7 +101,7 @@ app.post('/api/relato', async (req, res) => {
     subject: `[Voz Segura] Novo Relato: ${tipo_bullying}`,
     html: `
       <div style="font-family: Arial, sans-serif; color: #1A1C24; max-width: 600px; margin: 0 auto; border: 1px solid #E2D9F3; border-radius: 12px; padding: 24px; background-color: #ffffff;">
-        <h2 style="color: #8367C7; border-bottom: 2px solid #8367C7; padding-bottom: 8px; margin-top: 0;">🛡️ Novo Relato Cadastrado</h2>
+        <h2 style="color: #0052B4; border-bottom: 2px solid #0052B4; padding-bottom: 8px; margin-top: 0;">🛡️ Novo Relato Cadastrado</h2>
         <p style="font-size: 0.85rem; color: #706F78;"><strong>Data/Hora:</strong> ${new Date().toLocaleString('pt-BR')}</p>
         <table style="width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.95rem;">
           <tr style="background-color: #F4F0FA;">
@@ -133,11 +130,9 @@ app.post('/api/relato', async (req, res) => {
           </tr>
         </table>
         <h3 style="margin-top: 24px; color: #1A1C24; font-size: 1rem;">Descrição Detalhada:</h3>
-        <div style="background-color: #EBF3F7; padding: 16px; border-radius: 8px; border-left: 4px solid #8367C7; white-space: pre-wrap; line-height: 1.5; font-size: 0.95rem;">
+        <div style="background-color: #EBF3F7; padding: 16px; border-radius: 8px; border-left: 4px solid #0052B4; white-space: pre-wrap; line-height: 1.5; font-size: 0.95rem;">
           ${descricao}
         </div>
-        <hr style="border: none; border-top: 1px solid #EAE6F0; margin-top: 25px;" />
-        <p style="font-size: 0.75rem; color: #92919A; text-align: center; margin-bottom: 0;">Mensagem gerada automaticamente pelo sistema Voz Segura.</p>
       </div>
     `
   };
@@ -151,7 +146,7 @@ app.post('/api/relato', async (req, res) => {
   }
 });
 
-// Fallback de rota para servir o index.html caso acesse rotas do frontend
+// Fallback geral
 app.get('*', (req, res, next) => {
   if (req.url.includes('.')) {
     return next();
