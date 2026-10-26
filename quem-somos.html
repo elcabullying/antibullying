@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quem Somos Nós - Alerta Elça</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #F4F0FA; 
+            color: #1A1C24;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* CABEÇALHO COMPACTO E RESPONSIVO */
+        header {
+            background-color: rgba(240, 235, 247, 0.9); 
+            backdrop-filter: blur(10px);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #E2D9F3; 
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .logo-texto h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1A1C24;
+            line-height: 1.1;
+            margin: 0;
+        }
+
+        .logo-texto span {
+            font-size: 0.72rem;
+            color: #706F78;
+            font-weight: 500;
+            display: block;
+            margin-top: 2px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: nowrap;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #55545E;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding-bottom: 6px;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #1A1C24;
+            font-weight: 700;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #8367C7; 
+            border-radius: 2px;
+        }
+
+        /* SEÇÃO HERO QUEM SOMOS */
+        .hero-section-about {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px 40px 20px;
+        }
+
+        .hero-section-about h1 {
+            font-size: 2.8rem;
+            color: #1A1C24;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .hero-section-about p {
+            font-size: 1.1rem;
+            color: #55545E;
+            line-height: 1.6;
+        }
+
+        /* SEÇÃO DE INTEGRANTES E ORIENTADOR */
+        .team-section {
+            background-color: #FFFFFF;
+            padding: 70px 40px;
+            border-top: 1px solid #EAE6F0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #1A1C24;
+            margin-bottom: 12px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+        }
+
+        .section-title-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 30%;
+            width: 40%;
+            height: 3px;
+            background-color: #8367C7;
+            border-radius: 2px;
+        }
+
+        /* GRID DE INTEGRANTES */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background-color: #FFFFFF;
+            border: 2.5px solid #D6CBEB; 
+            border-radius: 20px;
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(131, 103, 199, 0.06); 
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            border-color: #8367C7; 
+        }
+
+        .team-card.orientador {
+            border-color: #E26D5C;
+            background-color: #FFFDFB;
+        }
+
+        .team-card.orientador:hover {
+            border-color: #C85342;
+        }
+
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #F4F0FA;
+            margin-bottom: 16px;
+            background-color: #E2D9F3;
+        }
+
+        .caption-role {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .role-criador {
+            background-color: #F1EDFA;
+            color: #8367C7;
+        }
+
+        .role-orientador {
+            background-color: #FFF2EE;
+            color: #E26D5C;
+        }
+
+        .team-card h3 {
+            font-size: 1.2rem;
+            color: #1A1C24;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .caption-text {
+            font-size: 0.88rem;
+            color: #706F78;
+            line-height: 1.4;
+        }
+
+        /* SEÇÃO DA GESTÃO DA ESCOLA */
+        .management-section {
+            background-color: #FDF6EE;
+            border-top: 1px solid #F3E1CE;
+            border-bottom: 1px solid #F3E1CE;
+            padding: 70px 40px;
+        }
+
+        .management-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            border: 2px solid #F3E1CE;
+            border-radius: 24px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+        }
+
+        .management-img-area {
+            flex: 1;
+            min-width: 280px;
+            text-align: center;
+        }
+
+        .management-img {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            border-radius: 16px;
+            border: 2px solid #E2D9F3;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .management-img-caption {
+            font-size: 0.85rem;
+            color: #706F78;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .management-info {
+            flex: 1.2;
+            min-width: 300px;
+        }
+
+        .management-info h2 {
+            font-size: 1.8rem;
+            color: #1A1C24;
+            margin-bottom: 16px;
+        }
+
+        .management-info p {
+            color: #55545E;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        /* NOTA DE RODAPÉ DISCRETA */
+        footer {
+            background-color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #92919A;
+            border-top: 1px solid #EAE6F0;
+            margin-top: auto;
+        }
+
+        /* BOTÃO FLUTUANTE ESC */
+        .floating-esc-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #EF4444;
+            color: #FFFFFF;
+            border: 2px solid #DC2626;
+            padding: 15px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+            z-index: 999;
+            transition: transform 0.2s, background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .floating-esc-btn:hover {
+            background-color: #DC2626;
+            transform: scale(1.05);
+        }
+
+        /* RESPONSIVIDADE PARA TABLETS E DISPOSITIVOS MÓVEIS */
+        @media (max-width: 992px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .management-container {
+                flex-direction: column;
+                padding: 30px;
+            }
+            .management-img-area, .management-info {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-section-about h1 {
+                font-size: 2rem;
+            }
+            .team-section, .management-section {
+                padding: 40px 15px;
+            }
+            .management-container {
+                padding: 20px;
+            }
+            .floating-esc-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 18px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BOTÃO FLUTUANTE ESC -->
+    <button class="floating-esc-btn" onclick="exitUrgent()" aria-label="Sair rapidamente da página">
+        ⚠️ SAIR RÁPIDO (ESC)
+    </button>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <div class="logo-area">
+            <img src="./logo.png" alt="Logo Alerta Elça" class="logo-img">
+            <div class="logo-texto">
+                <h2>Alerta Elça</h2>
+                <span>Juntos contra o bullying</span>
+            </div>
+        </div>
+        
+        <nav>
+            <a href="index.html" class="nav-link">Início</a>
+            <a href="quem-somos.html" class="nav-link active">Quem somos nós</a>
+            <a href="meditacao.html" class="nav-link">Meditação</a>
+            <a href="autoavaliacao.html" class="nav-link">Autoavaliação (PHQ-9)</a>
+            <a href="relato.html" class="nav-link">Relatar caso</a>
+            <a href="noticias.html" class="nav-link">Notícias e Ciência</a>
+            <a href="denuncia.html" class="nav-link">Canais de denúncia</a>
+        </nav>
+    </header>
+
+    <!-- SEÇÃO HERO DE APRESENTAÇÃO -->
+    <section class="hero-section-about">
+        <h1>Conheça a nossa equipe</h1>
+        <p>O projeto <strong>Alerta Elça</strong> nasceu da iniciativa de alunos e educadores empenhados em criar um ambiente escolar seguro, empático e acolhedor para todos.</p>
+    </section>
+
+    <!-- SEÇÃO DOS CRIADORES E ORIENTADOR -->
+    <section class="team-section">
+        <div class="section-title-container">
+            <h2 class="section-title">Idealizadores e Orientação</h2>
+        </div>
+
+        <div class="team-grid">
+            <!-- Criador 1 -->
+            <div class="team-card">
+                <img src="./criador1.png" alt="Foto de Criador(a) 1" class="profile-img">
+                <span class="caption-role role-criador">Criador(a)</span>
+                <h3>Nome do Criador 1</h3>
+                <p class="caption-text">Estudante responsável pelo desenvolvimento e idealização da plataforma Alerta Elça.</p>
+            </div>
+
+            <!-- Criador 2 -->
+            <div class="team-card">
+                <img src="./criador2.JPEG" alt="Foto de Criador(a) 2" class="profile-img">
+                <span class="caption-role role-criador">Criador(a)</span>
+                <h3>Nome do Criador 2</h3>
+                <p class="caption-text">Estudante focado(a) no design de experiência, acolhimento e navegação do site.</p>
+            </div>
+
+            <!-- Criador 3 -->
+            <div class="team-card">
+                <img src="./criador3.JPEG" alt="Foto de Criador(a) 3" class="profile-img">
+                <span class="caption-role role-criador">Criador(a)</span>
+                <h3>Nome do Criador 3</h3>
+                <p class="caption-text">Estudante atuante na pesquisa de conteúdo e estruturação dos canais de apoio.</p>
+            </div>
+
+            <!-- Professor Orientador -->
+            <div class="team-card orientador">
+                <img src="./orientador.JPEG" alt="Foto do Professor Orientador" class="profile-img">
+                <span class="caption-role role-orientador">Prof. Orientador</span>
+                <h3>Nome do Professor</h3>
+                <p class="caption-text">Docente responsável pela orientação pedagógica e suporte técnico do projeto escolar.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DA GESTÃO DA ESCOLA -->
+    <section class="management-section">
+        <div class="management-container">
+            <div class="management-img-area">
+                <img src="./gestao-escola.jpg" alt="Equipe de Gestão da Escola Elça Carvalho da Fonseca" class="management-img">
+                <p class="management-img-caption">Equipe gestora da Escola Elça Carvalho da Fonseca.</p>
+            </div>
+
+            <div class="management-info">
+                <h2>Gestão Escolar e Apoio Institucional</h2>
+                <p>A gestão da <strong>Escola Elça Carvalho da Fonseca</strong> apoia integralmente as iniciativas que promovem o respeito, a inclusão e o bem-estar da nossa comunidade escolar.</p>
+                <p>Nossa equipe diretiva e pedagógica trabalha em conjunto com os estudantes para garantir que o ambiente de aprendizagem seja um espaço livre de intimidações, onde cada aluno se sinta ouvido e protegido.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOTA DE RODAPÉ -->
+    <footer>
+        &copy; 2026 Alerta Elça &bull; Projeto desenvolvido pela Escola Elça Carvalho da Fonseca. Todos os direitos reservados.
+    </footer>
+
+    <!-- SCRIPT DO BOTÃO DE EMERGÊNCIA -->
+    <script>
+        function exitUrgent() {
+            window.location.href = 'https://www.google.com';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                exitUrgent();
+            }
+        });
+    </script>
+</body>
+</html>
