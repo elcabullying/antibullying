@@ -7,24 +7,47 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Identifica a pasta do frontend de forma compatível com Local e Vercel
-const caminhoFrontend = process.env.VERCEL 
-  ? path.join(__dirname, 'public') 
-  : path.join(__dirname, '..');
+// Definir o caminho para o frontend (pasta pai "site")
+const caminhoFrontend = path.join(__dirname, '..');
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Servir arquivos estáticos (local e fallback)
-app.use(express.static(__dirname));
+// Servir arquivos estáticos buscando na pasta do frontend
 app.use(express.static(caminhoFrontend));
 
 // Rota principal (raiz do site)
 app.get('/', (req, res) => {
-  res.sendFile(path.join(caminhoFrontend, 'index.html'), (err) => {
+  res.sendFile(path.join(caminhoFrontend, 'index.html'));
+});
+
+// Rota dinâmica para entregar QUALQUER imagem .png
+app.get('/:imagem.png', (req, res) => {
+  const imagem = req.params.imagem;
+  res.sendFile(path.join(caminhoFrontend, `${imagem}.png`), (err) => {
     if (err) {
-      res.sendFile(path.join(__dirname, 'index.html'));
+      res.status(404).send('Imagem não encontrada');
+    }
+  });
+});
+
+// Rota dinâmica para entregar QUALQUER arquivo .pdf
+app.get('/:documento.pdf', (req, res) => {
+  const documento = req.params.documento;
+  res.sendFile(path.join(caminhoFrontend, `${documento}.pdf`), (err) => {
+    if (err) {
+      res.status(404).send('Documento PDF não encontrado');
+    }
+  });
+});
+
+// Rota dinâmica para abrir qualquer página .html (suporta nomes com acento)
+app.get('/:pagina.html', (req, res) => {
+  const pagina = decodeURIComponent(req.params.pagina);
+  res.sendFile(path.join(caminhoFrontend, `${pagina}.html`), (err) => {
+    if (err) {
+      res.status(404).send('Página não encontrada');
     }
   });
 });
@@ -71,7 +94,7 @@ app.post('/api/relato', async (req, res) => {
       pass: emailPass
     },
     tls: {
-      rejectUnauthorized: false // Ignora restrições de certificado SSL em rede local/antivírus
+      rejectUnauthorized: false // Ignora restrições de certificado SSL da rede local ou antivírus
     }
   });
 
@@ -128,16 +151,12 @@ app.post('/api/relato', async (req, res) => {
   }
 });
 
-// Fallback geral de rotas
+// Fallback de rota para servir o index.html caso acesse rotas do frontend
 app.get('*', (req, res, next) => {
   if (req.url.includes('.')) {
     return next();
   }
-  res.sendFile(path.join(caminhoFrontend, 'index.html'), (err) => {
-    if (err) {
-      res.sendFile(path.join(__dirname, 'index.html'));
-    }
-  });
+  res.sendFile(path.join(caminhoFrontend, 'index.html'));
 });
 
 if (!process.env.VERCEL) {
