@@ -7,52 +7,17 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Correção: Aponta para o diretório atual onde estão os arquivos HTML e assets
+// Diretório raiz onde estão todos os arquivos do projeto
 const caminhoFrontend = __dirname;
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Servir arquivos estáticos da raiz
+// 1. SERVIR TODOS OS ARQUIVOS ESTÁTICOS (HTML, PNGs, PDFs, CSS, etc.) DE FORMA AUTOMÁTICA
 app.use(express.static(caminhoFrontend));
 
-// Rota principal (raiz do site)
-app.get('/', (req, res) => {
-  res.sendFile(path.join(caminhoFrontend, 'index.html'));
-});
-
-// Rota dinâmica para entregar imagens .png
-app.get('/:imagem.png', (req, res) => {
-  const imagem = req.params.imagem;
-  res.sendFile(path.join(caminhoFrontend, `${imagem}.png`), (err) => {
-    if (err) {
-      res.status(404).send('Imagem não encontrada');
-    }
-  });
-});
-
-// Rota dinâmica para arquivos .pdf
-app.get('/:documento.pdf', (req, res) => {
-  const documento = req.params.documento;
-  res.sendFile(path.join(caminhoFrontend, `${documento}.pdf`), (err) => {
-    if (err) {
-      res.status(404).send('Documento PDF não encontrado');
-    }
-  });
-});
-
-// Rota dinâmica para páginas .html
-app.get('/:pagina.html', (req, res) => {
-  const pagina = decodeURIComponent(req.params.pagina);
-  res.sendFile(path.join(caminhoFrontend, `${pagina}.html`), (err) => {
-    if (err) {
-      res.status(404).send('Página não encontrada');
-    }
-  });
-});
-
-// Rota POST para receber o relato do formulário
+// Rota POST para receber o relato do formulário e enviar o e-mail
 app.post('/api/relato', async (req, res) => {
   const { 
     nome, 
@@ -146,11 +111,8 @@ app.post('/api/relato', async (req, res) => {
   }
 });
 
-// Fallback geral
-app.get('*', (req, res, next) => {
-  if (req.url.includes('.')) {
-    return next();
-  }
+// 2. FALLBACK: Se acessar qualquer rota que não seja API, redireciona para o index.html
+app.get('*', (req, res) => {
   res.sendFile(path.join(caminhoFrontend, 'index.html'));
 });
 
